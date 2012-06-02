@@ -135,8 +135,8 @@ void 		nft_log_va(NftLoglevel level, const char * file, const char * func, int l
 void 		nft_log_func_register(NftLogFunc *func, void *userdata);
 NftResult	nft_log_level_set(NftLoglevel loglevel);
 NftLoglevel 	nft_log_level_get();
-const char *	nft_log_level_to_name(NftLoglevel loglevel);
-NftLoglevel 	nft_log_level_from_name(const char *name);
+const char *	nft_log_level_to_string(NftLoglevel loglevel);
+NftLoglevel 	nft_log_level_from_string(const char *name);
 
 #endif /* _NFT_LOGGER_H */
 

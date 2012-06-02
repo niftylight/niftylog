@@ -129,7 +129,7 @@ void nft_log_va(NftLoglevel level, const char * file, const char * func, int lin
                         fprintf(stderr, "%s\n", tmp);
                 /* warning or error message, print loglevel */
                 else
-                        fprintf(stderr, "%s: %s\n", nft_log_level_to_name(level), tmp);
+                        fprintf(stderr, "%s: %s\n", nft_log_level_to_string(level), tmp);
         }
 }
 
@@ -163,7 +163,12 @@ void nft_log_va_debug(NftLoglevel level, const char * file, const char * func, i
         /* print to stderr */
         else
         {
-                fprintf(stderr, "%s:%d %s() %s: %s\n", file, line, func, nft_log_level_to_name(level), tmp);
+                fprintf(stderr, "%s:%d %s() %s: %s\n", 
+				    file, 
+				    line, 
+				    func, 
+				    nft_log_level_to_string(level), 
+				    tmp);
         }
 }
 
@@ -224,7 +229,7 @@ NftResult nft_log_level_set(NftLoglevel loglevel)
         _level = loglevel;
         
         static char tmp[64];
-        snprintf(tmp, 64, "%s=%s", NFT_LOG_ENVNAME, nft_log_level_to_name(loglevel));
+        snprintf(tmp, 64, "%s=%s", NFT_LOG_ENVNAME, nft_log_level_to_string(loglevel));
         
         if(putenv(tmp) == -1)
                 return NFT_FAILURE;        
@@ -245,18 +250,17 @@ NftLoglevel nft_log_level_get()
                 return _level;
         }
         
-        return nft_log_level_from_name(env);
+        return nft_log_level_from_string(env);
 }
 
 
 /**
  * return name of current loglevel
- * @todo rename to _to_string
  *
  * @p loglevel loglevel
  * @result string with loglevel name or NULL upon error
  */
-const char *nft_log_level_to_name(NftLoglevel loglevel)
+const char *nft_log_level_to_string(NftLoglevel loglevel)
 {
 	if(loglevel >= L_MIN || loglevel <= L_MAX)
 	{
@@ -270,12 +274,11 @@ const char *nft_log_level_to_name(NftLoglevel loglevel)
 
 /**
  * return loglevel of loglevel-name
- * @todo rename to _from_string
  *
  * @p name string with lowercase loglevel-name
  * @result loglevel or -1 upon error
  */
-NftLoglevel nft_log_level_from_name(const char *name)
+NftLoglevel nft_log_level_from_string(const char *name)
 {
 	if(!name)
 		NFT_LOG_NULL(-1);
