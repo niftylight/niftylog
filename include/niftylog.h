@@ -49,11 +49,12 @@
  * @mainpage lightweight & simple library to implement logging/debugging output for new or existing applications
  *
  * <h1>Introduction</h1>  
- * Provide simple logging functionality.
+ * Provide simple logging functionality so your 
+ * program can notify the user about various things.
  *
  * 
  * <h1>Usage</h1>
- * 
+ * s. @ref logger
  */
 
 

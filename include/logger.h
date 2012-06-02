@@ -47,13 +47,25 @@
 
 /**
  * @defgroup logger Logging API
- * @brief <b>Logging functionality.</b> \n\n
- * Use @ref NFT_LOG() to output printable strings to the user. \n
- * Use @ref nft_log_level_set to control which kind of log-messages are supressed. \n
- * Messages are printed to stderr as long as you don't register your own @ref NftLogFunc using @ref nft_log_func_register() \n
- * Other convenience macros include: \n
- * * \ref NFT_LOG_PERROR("foo") - output perror("foo") using the logging mechanism \n
- * * \ref NFT_LOG_NULL(-1) - print error about a received NULL pointer and return -1 \n
+ * @brief <b>Logging functionality.</b>
+ * - use @ref nft_log_level_set() to control which kind of log-messages are 
+ *   supressed. You should do this initially to set the default @ref NftLoglevel.
+ *   (@ref L_INFO or @ref L_ERROR would be a wise choice for example) 
+ * - use @ref nft_log_level_get() to acquire the currently used @ref NftLoglevel
+ * - use @ref NFT_LOG() to output printable strings to the user. \n
+ * - use @ref nft_log_level_to_string() and nft_log_level_from_string() to 
+ *   convert between @ref NftLoglevel and their printable names
+ * @todo introduce pre-defined logging mechanisms to choose from (stderr, 
+ * syslog, null,...)
+ * @todo seperate nft_log_func_register() to feed logging into the library and
+ * nft_log_mechanism_register() to use a custom output mechanism
+ *     
+ * Messages are printed to stderr as long as you don't register your own 
+ * @ref NftLogFunc using @ref nft_log_func_register()
+ * \n Other convenience macros include:
+ * - \ref NFT_LOG_PERROR("foo") - output perror("foo") using the logging mechanism \n
+ * - \ref NFT_LOG_NULL(-1) - print error about a received NULL pointer and return -1 \n
+ * - \ref NFT_TODO() - use this to print some generic "todo" messages to mark an unimplemented feature
  * @{
  */
 
