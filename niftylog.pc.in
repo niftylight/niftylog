@@ -3,10 +3,10 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 
-Name: @GENERIC_LIBRARY_NAME@
-Description: niftylight LED logging library
-Version: @VERSION@
-Libs: -L${libdir} -l@GENERIC_LIBRARY_NAME@
-Cflags: -I@includedir@/lib@GENERIC_LIBRARY_NAME@-@GENERIC_RELEASE@
+Name: @PACKAGE@
+Description: @PACKAGE_DESCRIPTION@
+Version: @PACKAGE_VERSION@
+Libs: -L${libdir} -l@PACKAGE@
+Cflags: -I@includedir@/lib@PACKAGE@-@PACKAGE_MAJOR_VERSION@.@PACKAGE_MINOR_VERSION@
 
 
