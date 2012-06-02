@@ -1,4 +1,4 @@
-# libniftyconf Makefile.am - v0.2 - Daniel Hiepler <daniel@niftylight.de> 
+# libniftylog Makefile.am - v0.2 - Daniel Hiepler <daniel@niftylight.de> 
 
 INCLUDE_DIRS = -I$(top_srcdir)/include -I$(top_srcdir)/src
 
@@ -7,19 +7,35 @@ INCLUDE_DIRS = -I$(top_srcdir)/include -I$(top_srcdir)/src
 SUBDIRS =
 EXTRA_DIST = 
 
-# target library
-lib_LTLIBRARIES = lib@GENERIC_LIBRARY_NAME@.la
-
 # source-files
-lib@GENERIC_LIBRARY_NAME@_la_SOURCES = \
+lib@PACKAGE@_la_SOURCES = \
+	version.c \
 	logger.c
 
+
+# compile for debugging ?
+if DEBUG
+    OPT_CFLAGS = -O0 -g
+else
+    OPT_CFLAGS = -O2
+endif
+
+
+# target library
+lib_LTLIBRARIES = lib@PACKAGE@.la
+
 # cflags 
-lib@GENERIC_LIBRARY_NAME@_la_CFLAGS = -Wall $(INCLUDE_DIRS)
+lib@PACKAGE@_la_CFLAGS = \
+	-Wall \
+	$(INCLUDE_DIRS) \
+	-DPACKAGE_GIT_VERSION="\"`$(top_srcdir)/version.sh --git`\""
 
 # linker flags
-lib@GENERIC_LIBRARY_NAME@_la_LDFLAGS = -version-info $(GENERIC_LIBRARY_VERSION) -release $(GENERIC_RELEASE) -lpthread -ldl -Wall -no-undefined 
+lib@PACKAGE@_la_LDFLAGS = \
+        -version-info @PACKAGE_API_CURRENT@:@PACKAGE_API_REVISION@:@PACKAGE_API_AGE@ \
+        -release @PACKAGE_MAJOR_VERSION@.@PACKAGE_MINOR_VERSION@.@PACKAGE_MICRO_VERSION@ \
+        -Wall -no-undefined
 
 # link in modules from subdirectories
-#lib@GENERIC_LIBRARY_NAME@_la_LIBADD = $(SUBDIRS)
-lib@GENERIC_LIBRARY_NAME@_la_LIBADD =
+#lib@PACKAGE@_la_LIBADD = $(SUBDIRS)
+lib@PACKAGE@_la_LIBADD =

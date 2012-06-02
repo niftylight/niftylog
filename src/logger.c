@@ -92,38 +92,7 @@ static void *_uptr;
 static NftLoglevel _level;
 
 
-/**
- * check the compiled lib-version against the include one.
- * This can throw a warning or immediately kill the application.
- * @note don't call this directly. Use the NFT_LOG_CHECK_VERSION
- * macro
- *
- * @p version the include version number
- */
-void nft_log_check_version(int version)
-{
-        int myversion = (int) GENERIC_API_VERSION;
 
-        if((myversion / 10000) != (version / 10000))
-        {
-                NFT_LOG(L_ERROR, "Program compiled against %s API-Version %d but currently installed is %d. Please upgrade.",
-                        PACKAGE_NAME, version, myversion);
-                exit(1);
-        }
-
-        if(myversion != version)
-        {
-                NFT_LOG(L_WARNING, "Program compiled against %s API-Version %d but currently installed is %d.",
-                        PACKAGE_NAME, version, myversion);
-        }
-
-        NFT_LOG(L_DEBUG, "%s v%d.%d.%d (API %d)",
-                PACKAGE_NAME, 
-                GENERIC_MAJOR_VERSION,
-                GENERIC_MINOR_VERSION,
-                GENERIC_MICRO_VERSION,
-                GENERIC_API_VERSION);
-}
 
 
 /**
