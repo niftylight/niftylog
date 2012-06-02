@@ -46,9 +46,14 @@
 #define _NIFTYLOG
 
 /**
- * @mainpage libniftylog API documentation
+ * @mainpage lightweight & simple library to implement logging/debugging output for new or existing applications
  *
+ * <h1>Introduction</h1>  
  * Provide simple logging functionality.
+ *
+ * 
+ * <h1>Usage</h1>
+ * 
  */
 
 
