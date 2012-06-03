@@ -8,7 +8,7 @@ library_includedir = $(includedir)/lib$(PACKAGE)-$(PACKAGE_MAJOR_VERSION).$(PACK
 # headers to install 
 library_include_HEADERS = \
 	niftylog.h \
-	log_version.h \
+	logger-version.h \
 	logger.h
 
 

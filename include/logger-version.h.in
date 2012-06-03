@@ -42,7 +42,7 @@
  */
 
 /**     
- * @file log_version.h 
+ * @file logger-version.h 
  * @addtogroup logger
  * @{
  * @defgroup logger_version Version handling

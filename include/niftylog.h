@@ -62,7 +62,7 @@
 
 
 #include "logger.h"
-#include "log_version.h"
+#include "logger-version.h"
 
 
 /* boolean definitions */

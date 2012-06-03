@@ -113,7 +113,7 @@ AC_CONFIG_FILES(
           Doxyfile \
 	  Makefile \
 	  include/Makefile \
-	  include/log_version.h \
+	  include/logger-version.h \
 	  src/Makefile \
 	  src/version.c \
 	  tests/Makefile \
