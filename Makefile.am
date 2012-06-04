@@ -23,6 +23,9 @@ endif
 EXTRA_DIST = Doxyfile Doxyfile.in $(PACKAGE).pc $(PACKAGE).pc.in
 DISTCLEANFILES = $(PACKAGE).pc
 
+# pkgconfig for libniftylog
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = $(PACKAGE).pc
 
 
 
