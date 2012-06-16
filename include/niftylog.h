@@ -46,8 +46,7 @@
 #define _NIFTYLOG
 
 /**
- * @mainpage <a href="http://wiki.niftylight.de/libniftylog>lightweight & simple library to implement logging/debugging output for new or existing 
-applications</a>
+ * @mainpage <a href="http://wiki.niftylight.de/libniftylog">lightweight & simple library to implement logging/debugging output for new or existing applications</a>
  *
  * <h1>Introduction</h1>  
  * Provide simple logging functionality so your 
