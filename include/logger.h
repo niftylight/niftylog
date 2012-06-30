@@ -88,7 +88,7 @@
 typedef enum
 {
         NFT_FAILURE = 0,
-        NFT_SUCCESS,
+        NFT_SUCCESS
 }NftResult;
 #endif
 
@@ -120,7 +120,7 @@ typedef enum
         /** no messages are printed */
         L_QUIET,  
         /** LEAVE THIS AT THE END OF THE LIST */
-        L_MIN,
+        L_MIN
 }NftLoglevel;
 
 /** logging function that will be called for every log-message if registered with @ref nft_log_func_register() */

@@ -7,6 +7,6 @@ Name: @PACKAGE@
 Description: @PACKAGE_DESCRIPTION@
 Version: @PACKAGE_VERSION@
 Libs: -L${libdir} -l@PACKAGE@
-Cflags: -I@includedir@/lib@PACKAGE@-@PACKAGE_MAJOR_VERSION@.@PACKAGE_MINOR_VERSION@
+Cflags: -I@includedir@/lib@PACKAGE@-@PACKAGE_VERSION@
 
 
