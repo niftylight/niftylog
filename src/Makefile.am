@@ -26,7 +26,7 @@ lib_LTLIBRARIES = lib@PACKAGE@.la
 
 # cflags 
 lib@PACKAGE@_la_CFLAGS = \
-	-Wall -Wextra -Werror \
+	-Wall -Wextra -Werror -Wno-unused-parameter \
 	$(INCLUDE_DIRS) \
 	-DPACKAGE_GIT_VERSION="\"`$(top_srcdir)/version.sh --git`\""
 
