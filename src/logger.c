@@ -112,6 +112,7 @@ void nft_log_va(NftLoglevel level, const char * file, const char * func, int lin
 	/* print log-string */
 	if(vsnprintf((char *) tmp, MAX_MSG_SIZE, msg, args) < 0)
         {
+		fprintf(stderr, "Failed to print message: \"%s\"", msg);
                 perror("vsnprintf");
                 return;
         }
