@@ -86,6 +86,9 @@ function output_long()
     echo -n $(major).$(minor).$(micro)-$(output_git)
 }
 
+# no arguments?
+if [ -z "$1" ] ; then help ; exit 1 ; fi
+
 # parse cmdline arguments
 TEMP=`getopt -o lsMmugrca --long long,short,major,minor,micro,git,api-revision,api-current,api-age -n 'version.sh' -- "$@"`
 if [ $? != 0 ] ; then help ; echo "Terminating..." >&2 ; exit 1 ; fi
@@ -123,7 +126,7 @@ while true ; do
         -c|--api-age) api_age ; shift 1 ;;
 
         # ?!
-        --) help ; shift ; break ;;
+        --) shift ; break ;;
         *) echo "Argument parsing error!" ; help ; exit 1 ;;
     esac
 done
