@@ -1,5 +1,5 @@
 Source: niftylog
-Section: devel
+Section: libs
 Priority: optional
 Maintainer: Daniel Hiepler <daniel-ubuntu@niftylight.de>
 Build-Depends: debhelper (>= 8.0.0), autotools-dev
