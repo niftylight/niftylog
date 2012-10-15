@@ -15,7 +15,7 @@ DEBIAN="$(pwd)/debian"
 # package name
 PKG_NAME="niftylog"
 # package version
-PKG_VERSION="$($REPO/version.sh --short)"
+PKG_VERSION="$($REPO/version.sh --long)"
 # dh_make license
 LICENSE=gpl3
 # temporary path
