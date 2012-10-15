@@ -16,6 +16,7 @@ DEBIAN="$(pwd)/debian"
 PKG_NAME="niftylog"
 # package version
 PKG_VERSION="$($REPO/version.sh --long)"
+PKG_VERSION_SHORT="$($REPO/version.sh --short)"
 # dh_make license
 LICENSE=gpl3
 # temporary path
@@ -31,7 +32,7 @@ function die()
 
 
 if ! test -d "${TMP}" ; then mkdir ${TMP} || die "mkdir" ; fi
-DIR="${TMP}/${PKG_NAME}-${PKG_VERSION}"
+DIR="${TMP}/${PKG_NAME}-${PKG_VERSION_SHORT}"
 
 # clone repo
 if test -d "${DIR}" ; then
