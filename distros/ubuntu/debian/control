@@ -1,0 +1,15 @@
+Source: niftylog
+Section: devel
+Priority: optional
+Maintainer: Daniel Hiepler <daniel-ubuntu@niftylight.de>
+Build-Depends: debhelper (>= 8.0.0), autotools-dev
+Standards-Version: 3.9.2
+Homepage: http://wiki.niftylight.de/niftylog
+#Vcs-Git: git://github.com/niftylight/niftylog.git
+#Vcs-Browser: https://github.com/niftylight/niftylog.git
+
+Package: niftylog
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: small helper library to output logging/debug information
+ lightweight & simple library to implement logging/debugging output for new or existing applications
