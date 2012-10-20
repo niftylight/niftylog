@@ -10,6 +10,7 @@ EXTRA_DIST =
 # source-files
 lib@PACKAGE@_la_SOURCES = \
 	version.c \
+	mechanism.c \
 	logger.c
 
 

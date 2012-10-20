@@ -47,7 +47,7 @@
 
 /**
  * @defgroup logger Logging API
- * @brief <b>Logging functionality.</b>
+ * @brief Logging functionality.
  * - use @ref nft_log_level_set() to control which kind of log-messages are 
  *   supressed. You should do this initially to set the default @ref NftLoglevel.
  *   (@ref L_INFO or @ref L_ERROR would be a wise choice for example) 
