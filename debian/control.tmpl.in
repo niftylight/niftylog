@@ -1,0 +1,24 @@
+Source: @PACKAGE@
+Priority: optional
+Maintainer: Daniel Hiepler <daniel-ubuntu@niftylight.de>
+Build-Depends: debhelper (>= 8.0.0), autotools-dev
+Standards-Version: 3.9.3
+Section: libs
+Homepage: @PACKAGE_URL@
+#Vcs-Git: git://github.com/niftylight/niftylog.git
+#Vcs-Browser: https://github.com/niftylight/niftylog.git
+
+Package: @PACKAGE_NAME@-dev
+Section: libdevel
+Architecture: any
+Depends: ${misc:Depends}, @PACKAGE_NAME@@PACKAGE_API_REVISION@ (= ${binary:Version})
+Description: @PACKAGE_NAME@ library headers
+ This package contains development headers for @PACKAGE_NAME@ -
+ @PACKAGE_DESCRIPTION@
+
+Package: @PACKAGE_NAME@@PACKAGE_API_REVISION@
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: lightweight logging/debug output helpers
+ @PACKAGE_DESCRIPTION@

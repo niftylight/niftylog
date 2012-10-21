@@ -117,7 +117,8 @@ AC_CONFIG_FILES(
 	  src/Makefile \
 	  src/version.c \
 	  tests/Makefile \
-          $PACKAGE.pc          
+          $PACKAGE.pc \
+	  debian/control.tmpl
 ])
 AC_OUTPUT
 

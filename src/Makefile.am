@@ -1,11 +1,11 @@
-# libniftylog Makefile.am - v0.2 - Daniel Hiepler <daniel@niftylight.de> 
+# libniftylog Makefile.am - v0.2 - Daniel Hiepler <daniel@niftylight.de>
 
 INCLUDE_DIRS = -I$(top_srcdir)/include -I$(top_srcdir)/src
 
 
 # module-subdirs to include
 SUBDIRS =
-EXTRA_DIST = 
+EXTRA_DIST =
 
 # source-files
 lib@PACKAGE@_la_SOURCES = \
@@ -25,7 +25,7 @@ endif
 # target library
 lib_LTLIBRARIES = lib@PACKAGE@.la
 
-# cflags 
+# cflags
 lib@PACKAGE@_la_CFLAGS = \
 	-Wall -Wextra -Werror -Wno-unused-parameter \
 	$(INCLUDE_DIRS) \
