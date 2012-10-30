@@ -22,6 +22,7 @@ endif
 # files to include in archive
 EXTRA_DIST = \
 	debian \
+	gentoo \
 	version.sh \
 	$(PACKAGE).pc.in
 
