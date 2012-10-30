@@ -119,6 +119,7 @@ AC_CONFIG_FILES(
 	  tests/Makefile \
           $PACKAGE.pc \
 	  debian/control.tmpl
+	  gentoo/dev-libs/niftylog/niftylog-9999.ebuild
 ])
 AC_OUTPUT
 
