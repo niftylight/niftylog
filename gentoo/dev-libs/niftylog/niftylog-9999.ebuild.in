@@ -5,7 +5,7 @@ EAPI=2
 
 inherit git-2 autotools
 
-DESCRIPTION="@PACKAGE_DESCRIPTION@"
+DESCRIPTION="@PACKAGE_DESCRIPTION_LONG@"
 HOMEPAGE="@PACKAGE_URL@"
 EGIT_REPO_URI="git://github.com/niftylight/niftylog.git https://github.com/niftylight/niftylog.git"
 #EGIT_COMMIT="master"
