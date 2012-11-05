@@ -48,7 +48,8 @@ lib@PACKAGE@_la_CFLAGS = \
 lib@PACKAGE@_la_LDFLAGS = \
         -version-info @PACKAGE_API_CURRENT@:@PACKAGE_API_REVISION@:@PACKAGE_API_AGE@ \
         -release @PACKAGE_MAJOR_VERSION@.@PACKAGE_MINOR_VERSION@ \
-        -Wall -no-undefined -no-allow-shlib-undefined
+        -Wall -no-undefined -no-allow-shlib-undefined \
+		-export-symbols-regex [_]*\(nft_\|NFT_\).*
 
 # link in modules from subdirectories
 lib@PACKAGE@_la_LIBADD = $(SUBDIRS)
