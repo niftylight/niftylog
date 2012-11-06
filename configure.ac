@@ -9,7 +9,7 @@
 AC_INIT([libniftylog], m4_esyscmd([./version --short]),[http://github.com/niftylight/niftylog/issues], [niftylog], [http://wiki.niftylight.de/AC_PACKAGE_NAME])
 AC_COPYRIGHT([Copyright (C) 2006-2012 Daniel Hiepler])
 
-AM_INIT_AUTOMAKE([color-tests dist-bzip2 parallel-tests silent-rules -Wall])
+AM_INIT_AUTOMAKE([color-tests dist-bzip2 parallel-tests silent-rules -Wno-portability -Wall])
 AC_CONFIG_MACRO_DIR([m4])
 
 
@@ -113,14 +113,14 @@ AM_CONDITIONAL(DEBUG, test x$debug = xtrue)
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES(
 [
-      Doxyfile
+	  Doxyfile
 	  Makefile
 	  include/Makefile
 	  include/logger-version.h
 	  src/Makefile
 	  src/version.c
 	  tests/Makefile
-      $PACKAGE.pc
+	  $PACKAGE.pc
 	  debian/control.tmpl
 	  gentoo/dev-libs/niftylog/niftylog-9999.ebuild
 ])
