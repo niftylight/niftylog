@@ -89,7 +89,7 @@ typedef enum
 {
         NFT_FAILURE = 0,
         NFT_SUCCESS
-}NftResult;
+} NftResult;
 #endif
 
 
@@ -101,8 +101,8 @@ typedef enum
         L_INVALID = -1,
         /** maximum-entry always at beginning of list */
         L_MAX,
-	/** very very noisy output - don't send this in bug reports ;) */
-	L_VERY_NOISY,
+        /** very very noisy output - don't send this in bug reports ;) */
+        L_VERY_NOISY,
         /** jabberish or oftenly repeating notifications */
         L_NOISY,
         /** internal working notifications */
@@ -118,13 +118,13 @@ typedef enum
         /** only important errors are printed */
         L_ERROR,
         /** no messages are printed */
-        L_QUIET,  
+        L_QUIET,
         /** LEAVE THIS AT THE END OF THE LIST */
         L_MIN
-}NftLoglevel;
+} NftLoglevel;
 
 /** logging function that will be called for every log-message if registered with @ref nft_log_func_register() */
-typedef void (NftLogFunc)(void *userdata, NftLoglevel level, const char * file, const char * func, int line, const char * msg);
+typedef void                    (NftLogFunc) (void *userdata, NftLoglevel level, const char *file, const char *func, int line, const char *msg);
 
 /** convenience macro for nft_log() \n
  * @note No \\n is needed at end of string. \n
@@ -142,13 +142,13 @@ typedef void (NftLogFunc)(void *userdata, NftLoglevel level, const char * file, 
 
 
 
-void 		nft_log(NftLoglevel level, const char * file, const char * func, int line, const char * msg, ...);
-void 		nft_log_va(NftLoglevel level, const char * file, const char * func, int line, const char * msg, va_list args);
-void 		nft_log_func_register(NftLogFunc *func, void *userdata);
-NftResult	nft_log_level_set(NftLoglevel loglevel);
-NftLoglevel 	nft_log_level_get();
-const char *	nft_log_level_to_string(NftLoglevel loglevel);
-NftLoglevel 	nft_log_level_from_string(const char *name);
+void                            nft_log(NftLoglevel level, const char *file, const char *func, int line, const char *msg, ...);
+void                            nft_log_va(NftLoglevel level, const char *file, const char *func, int line, const char *msg, va_list args);
+void                            nft_log_func_register(NftLogFunc * func, void *userdata);
+NftResult                       nft_log_level_set(NftLoglevel loglevel);
+NftLoglevel                     nft_log_level_get();
+const char                     *nft_log_level_to_string(NftLoglevel loglevel);
+NftLoglevel                     nft_log_level_from_string(const char *name);
 
 #endif /* _NFT_LOGGER_H */
 

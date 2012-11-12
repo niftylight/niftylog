@@ -59,18 +59,18 @@
 
 
 /** numerical id for all supported logging mechanisms */
-typedef enum 
+typedef enum
 {
-	NFT_LOG_MECH_NULL = 1,
-    	/** use mechanism registered by nft_log_mechanism_custom_register */
-    	NFT_LOG_MECH_CUSTOM,
-    	/** output to stderr */
-    	NFT_LOG_MECH_STDERR,
-    	/** use klog.h to output to syslog */
-    	NFT_LOG_MECH_SYSLOG,
-    	/* always leave this at end of enum */
-    	NFT_LOG_MECH_LAST,
-}NftLogMechanismID;
+        NFT_LOG_MECH_NULL = 1,
+        /** use mechanism registered by nft_log_mechanism_custom_register */
+        NFT_LOG_MECH_CUSTOM,
+        /** output to stderr */
+        NFT_LOG_MECH_STDERR,
+        /** use klog.h to output to syslog */
+        NFT_LOG_MECH_SYSLOG,
+        /* always leave this at end of enum */
+        NFT_LOG_MECH_LAST,
+} NftLogMechanismID;
 
 /** the default logging mechanism */
 #define NFT_LOG_MECH_DEFAULT	NFT_LOG_MECH_STDERR
@@ -80,12 +80,12 @@ typedef struct _NftLogMechanism NftLogMechanism;
 
 
 
-NftResult		nft_log_mechanism_clear();
-NftResult 		nft_log_mechanism_set(NftLogMechanismID id);
-NftResult 		nft_log_mechanism_unset(NftLogMechanismID id);
-bool 			nft_log_mechanism_is_set(NftLogMechanismID id);
+NftResult                       nft_log_mechanism_clear();
+NftResult                       nft_log_mechanism_set(NftLogMechanismID id);
+NftResult                       nft_log_mechanism_unset(NftLogMechanismID id);
+bool                            nft_log_mechanism_is_set(NftLogMechanismID id);
 
-NftResult		nft_log_mechanism_custom_register();
+NftResult                       nft_log_mechanism_custom_register();
 
 
 #endif /* _NFT_LOG_MECHANISM_H */

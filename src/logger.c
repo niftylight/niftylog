@@ -49,7 +49,7 @@
  * @addtogroup logger
  * @{
  */
-         
+
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -63,17 +63,16 @@
 
 
 /** names of existing loglevels (must be synced with NftLoglevel definition!) */
-static const char *_loglevel_names[] =
-{
-	"verynoisy",
-	"noisy", 
-	"debug", 
-	"verbose", 
-	"info", 
+static const char *_loglevel_names[] = {
+        "verynoisy",
+        "noisy",
+        "debug",
+        "verbose",
+        "info",
         "notice",
-	"warning", 
-	"error", 
-	"quiet"
+        "warning",
+        "error",
+        "quiet"
 };
 
 
@@ -98,26 +97,28 @@ static NftLoglevel _level;
 /**
  * va_list version of nft_log
  */
-void nft_log_va(NftLoglevel level, const char * file, const char * func, int line, const char * msg, va_list args)
+void nft_log_va(NftLoglevel level, const char *file, const char *func,
+                int line, const char *msg, va_list args)
 {
 
 
-	char *tmp;
+        char *tmp;
         if(!(tmp = alloca(MAX_MSG_SIZE)))
         {
                 perror("alloca");
                 return;
         }
 
-	/* print log-string */
-	if(vsnprintf((char *) tmp, MAX_MSG_SIZE, msg, args) < 0)
+        /* print log-string */
+        if(vsnprintf((char *) tmp, MAX_MSG_SIZE, msg, args) < 0)
         {
-		fprintf(stderr, "Failed to print message: \"%s\"", msg);
+                fprintf(stderr, "Failed to print message: \"%s\"", msg);
                 perror("vsnprintf");
                 return;
         }
-        
-        /* if an external function is registered, pass everything through to it */
+
+        /* if an external function is registered, pass everything through to it 
+         */
         if(_func)
         {
                 _func(_uptr, level, file, func, line, tmp);
@@ -130,7 +131,8 @@ void nft_log_va(NftLoglevel level, const char * file, const char * func, int lin
                         fprintf(stderr, "%s\n", tmp);
                 /* warning or error message, print loglevel */
                 else
-                        fprintf(stderr, "%s: %s\n", nft_log_level_to_string(level), tmp);
+                        fprintf(stderr, "%s: %s\n",
+                                nft_log_level_to_string(level), tmp);
         }
 }
 
@@ -138,25 +140,27 @@ void nft_log_va(NftLoglevel level, const char * file, const char * func, int lin
 /**
  * va_list version of nft_log (more detailed version)
  */
-void nft_log_va_debug(NftLoglevel level, const char * file, const char * func, int line, const char * msg, va_list args)
+void nft_log_va_debug(NftLoglevel level, const char *file, const char *func,
+                      int line, const char *msg, va_list args)
 {
 
 
-	char *tmp;
+        char *tmp;
         if(!(tmp = alloca(MAX_MSG_SIZE)))
         {
                 perror("alloca");
                 return;
         }
 
-	/* print log-string */
-	if(vsnprintf((char *) tmp, MAX_MSG_SIZE, msg, args) < 0)
+        /* print log-string */
+        if(vsnprintf((char *) tmp, MAX_MSG_SIZE, msg, args) < 0)
         {
                 perror("vsnprintf");
                 return;
         }
-        
-        /* if an external function is registered, pass everything through to it */
+
+        /* if an external function is registered, pass everything through to it 
+         */
         if(_func)
         {
                 _func(_uptr, level, file, func, line, tmp);
@@ -164,12 +168,9 @@ void nft_log_va_debug(NftLoglevel level, const char * file, const char * func, i
         /* print to stderr */
         else
         {
-                fprintf(stderr, "%s:%d %s() %s: %s\n", 
-				    file, 
-				    line, 
-				    func, 
-				    nft_log_level_to_string(level), 
-				    tmp);
+                fprintf(stderr, "%s:%d %s() %s: %s\n",
+                        file,
+                        line, func, nft_log_level_to_string(level), tmp);
         }
 }
 
@@ -182,23 +183,24 @@ void nft_log_va_debug(NftLoglevel level, const char * file, const char * func, i
  * @param line __line__
  * @param msg the log-message to output
  */
-void nft_log(NftLoglevel level, const char * file, const char * func, int line, const char * msg, ...)
+void nft_log(NftLoglevel level, const char *file, const char *func, int line,
+             const char *msg, ...)
 {
         NftLoglevel lcur = nft_log_level_get();
-	if (lcur > level)
+        if(lcur > level)
                 return;
 
-        
-        
+
+
         /* build message */
         va_list ap;
         va_start(ap, msg);
 
-	if(lcur <= L_DEBUG)
-		nft_log_va_debug(level, file, func, line, msg, ap);
-	else
-		nft_log_va(level, file, func, line, msg, ap);
-	
+        if(lcur <= L_DEBUG)
+                nft_log_va_debug(level, file, func, line, msg, ap);
+        else
+                nft_log_va(level, file, func, line, msg, ap);
+
         va_end(ap);
 
 }
@@ -209,10 +211,10 @@ void nft_log(NftLoglevel level, const char * file, const char * func, int line, 
  * @param func a @ref NftLogFunc that should output a string to the user in some way
  * @param userdata arbitrary pointer that will be passed to the NftLogFunc
  */
-void nft_log_func_register(NftLogFunc *func, void *userdata)
+void nft_log_func_register(NftLogFunc * func, void *userdata)
 {
-    _func = func;
-    _uptr = userdata;
+        _func = func;
+        _uptr = userdata;
 }
 
 
@@ -228,12 +230,13 @@ NftResult nft_log_level_set(NftLoglevel loglevel)
                 return NFT_FAILURE;
 
         _level = loglevel;
-        
+
         static char tmp[64];
-        snprintf(tmp, 64, "%s=%s", NFT_LOG_ENVNAME, nft_log_level_to_string(loglevel));
-        
+        snprintf(tmp, 64, "%s=%s", NFT_LOG_ENVNAME,
+                 nft_log_level_to_string(loglevel));
+
         if(putenv(tmp) == -1)
-                return NFT_FAILURE;        
+                return NFT_FAILURE;
 
         return NFT_SUCCESS;
 }
@@ -250,7 +253,7 @@ NftLoglevel nft_log_level_get()
         {
                 return _level;
         }
-        
+
         return nft_log_level_from_string(env);
 }
 
@@ -263,13 +266,13 @@ NftLoglevel nft_log_level_get()
  */
 const char *nft_log_level_to_string(NftLoglevel loglevel)
 {
-	if(loglevel >= L_MIN || loglevel <= L_MAX)
-	{
-		NFT_LOG(L_ERROR, "Invalid loglevel: %d", loglevel);
-		return NULL;
-	}
+        if(loglevel >= L_MIN || loglevel <= L_MAX)
+        {
+                NFT_LOG(L_ERROR, "Invalid loglevel: %d", loglevel);
+                return NULL;
+        }
 
-	return _loglevel_names[loglevel-1];
+        return _loglevel_names[loglevel - 1];
 }
 
 
@@ -281,21 +284,23 @@ const char *nft_log_level_to_string(NftLoglevel loglevel)
  */
 NftLoglevel nft_log_level_from_string(const char *name)
 {
-	if(!name)
-		NFT_LOG_NULL(-1);
-	
-	NftLoglevel res;
+        if(!name)
+                NFT_LOG_NULL(-1);
 
-	for(res=L_MAX; res < L_MIN; res++)
-	{
-		if(strncmp(name, _loglevel_names[res], sizeof(_loglevel_names[res])) == 0)
-		{
-			return res+1;
-		}
-	}
+        NftLoglevel res;
 
-	NFT_LOG(L_ERROR, "invalid loglevel name: \"%s\"", name);
-	return -1;
+        for(res = L_MAX; res < L_MIN; res++)
+        {
+                if(strncmp
+                   (name, _loglevel_names[res],
+                    sizeof(_loglevel_names[res])) == 0)
+                {
+                        return res + 1;
+                }
+        }
+
+        NFT_LOG(L_ERROR, "invalid loglevel name: \"%s\"", name);
+        return -1;
 }
 
 
