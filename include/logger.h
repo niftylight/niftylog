@@ -134,7 +134,7 @@ typedef void                    (NftLogFunc) (void *userdata, NftLoglevel level,
 /** perror logging-functionality */
 #define NFT_LOG_PERROR($msg) nft_log(L_ERROR, __FILE__, __func__, __LINE__, "%s: %s", $msg, strerror(errno))
 /** NULL pointer error-msg & return abrevation */
-#define NFT_LOG_NULL(ret) { nft_log(L_DEBUG, __FILE__, __func__, __LINE__, "NULL pointer received."); return ret; }
+#define NFT_LOG_NULL(ret) { nft_log(L_NOISY, __FILE__, __func__, __LINE__, "NULL pointer received."); return ret; }
 
 
 /* high-level TODO macro ;) */
