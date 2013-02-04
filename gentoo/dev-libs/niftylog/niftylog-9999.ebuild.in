@@ -18,10 +18,9 @@ KEYWORDS="~amd64 ~x86"
 
 IUSE="debug"
 
-RDEPEND="sys-libs/glibc"
+RDEPEND=""
 DEPEND="${RDEPEND}
-        virtual/pkgconfig"
-
+	virtual/pkgconfig"
 
 src_prepare()
 {
