@@ -1,5 +1,6 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
 
 EAPI=2
 
@@ -18,8 +19,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="debug"
 
 RDEPEND="sys-libs/glibc"
-DEPEND="${RDEPEND} 
-		virtual/pkgconfig"
+DEPEND="${RDEPEND}
+        virtual/pkgconfig"
 
 
 src_prepare()
@@ -32,14 +33,14 @@ src_unpack()
 	git-2_src_unpack
 }
 
-src_configure() 
+src_configure()
 {
-    econf \
-        $(use_enable debug)
+	econf \
+	    $(use_enable debug)
 }
 
 src_install() {
-    emake DESTDIR="${D}" install || die
+	emake DESTDIR="${D}" install || die
 
-    dodoc NEWS README COPYING AUTHORS ChangeLog
+	dodoc NEWS README AUTHORS ChangeLog
 }
