@@ -97,8 +97,9 @@ static NftLoglevel _level;
 /**
  * va_list version of nft_log
  */
-void nft_log_va(NftLoglevel level, const char *file, const char *func,
-                int line, const char *msg, va_list args)
+void nft_log_va(NftLoglevel level,
+                const char *file,
+                const char *func, int line, const char *msg, va_list args)
 {
 
 
@@ -140,7 +141,9 @@ void nft_log_va(NftLoglevel level, const char *file, const char *func,
 /**
  * va_list version of nft_log (more detailed version)
  */
-void nft_log_va_debug(NftLoglevel level, const char *file, const char *func,
+void nft_log_va_debug(NftLoglevel level,
+                      const char *file,
+                      const char *func,
                       int line, const char *msg, va_list args)
 {
 
@@ -183,8 +186,9 @@ void nft_log_va_debug(NftLoglevel level, const char *file, const char *func,
  * @param line __line__
  * @param msg the log-message to output
  */
-void nft_log(NftLoglevel level, const char *file, const char *func, int line,
-             const char *msg, ...)
+void nft_log(NftLoglevel level,
+             const char *file,
+             const char *func, int line, const char *msg, ...)
 {
         NftLoglevel lcur = nft_log_level_get();
         if(lcur > level)
