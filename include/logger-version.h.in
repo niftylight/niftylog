@@ -79,7 +79,7 @@
 
 
 /** macro to check version-compatibility */
-#define NFT_LOG_CHECK_VERSION nft_log_check_version(NFT_LOG_GIT_VERSION);
+#define NFT_LOG_CHECK_VERSION nft_log_check_version(NFT_LOG_GIT_VERSION)
 
 
 
