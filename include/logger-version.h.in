@@ -83,7 +83,7 @@
 
 
 
-void 		nft_log_check_version(const char *version);
+NftResult	nft_log_check_version(const char *version);
 const char *	nft_log_version_git();
 const char *    nft_log_version_long();
 

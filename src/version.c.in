@@ -56,25 +56,24 @@
 
 
 
-
 /**
- * check the compiled lib-version against the include one.
- * This can throw a warning or immediately kill the application.
- * @note don't call this directly. Use the NFT_LOG_CHECK_VERSION
- * macro
+ * used to check binary compatibility of dependencies
  *
- * @p version the include version number
+ * @note don't call this directly, use the NFT_LOG_CHECK_VERSION macro
+ * @result NFT_SUCCESS if all checks were passed, NFT_FAILURE otherwise
  */
-void nft_log_check_version(const char *version)
+NftResult nft_log_check_version(const char *version)
 {
         /* welcome */
         NFT_LOG(L_INFO, "%s v%s - %s", PACKAGE_NAME, NFT_LOG_LONG_VERSION, PACKAGE_URL);
 
         if(strcmp(version, NFT_LOG_GIT_VERSION) == 0)
-                return;
+                return NFT_SUCCESS;
         
         NFT_LOG(L_WARNING, "%s compiled against version %s but currently installed is %s.",
                 PACKAGE_NAME, version, NFT_LOG_GIT_VERSION);
+
+	return NFT_FAILURE;
 }
 
 
