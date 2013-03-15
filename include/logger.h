@@ -76,21 +76,11 @@
 #include <stdarg.h>
 #include <errno.h>
 #include <string.h>
-
+#include "nifty-primitives.h"
 
 
 /** name of environment variable to hold loglevel */
 #define NFT_LOG_ENVNAME         "NFT_LOGLEVEL"
-
-/** type for returning failure-status */
-#ifndef NFT_RESULT_DEFINED
-#define NFT_RESULT_DEFINED
-typedef enum
-{
-        NFT_FAILURE = 0,
-        NFT_SUCCESS
-} NftResult;
-#endif
 
 
 /** available loglevels (used by @ref nft_log_level_set() and @ref NFT_LOG()) 
