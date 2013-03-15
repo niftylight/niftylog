@@ -233,8 +233,10 @@ NftResult nft_log_level_set(NftLoglevel loglevel)
         if(loglevel >= L_MIN || loglevel <= L_MAX)
                 return NFT_FAILURE;
 
+        /* set new loglevel */
         _level = loglevel;
 
+        /* set new loglevel to environment variable */
         static char tmp[64];
         snprintf(tmp, 64, "%s=%s", NFT_LOG_ENVNAME,
                  nft_log_level_to_string(loglevel));
@@ -252,13 +254,14 @@ NftResult nft_log_level_set(NftLoglevel loglevel)
  */
 NftLoglevel nft_log_level_get()
 {
-        char *env;
-        if(!(env = getenv(NFT_LOG_ENVNAME)))
+        /* valid environment variable set? */
+        NftLoglevel l = nft_log_level_from_string(getenv(NFT_LOG_ENVNAME));
+        if(l >= L_MIN || l <= L_MAX)
         {
                 return _level;
         }
 
-        return nft_log_level_from_string(env);
+        return l;
 }
 
 
@@ -289,7 +292,7 @@ const char *nft_log_level_to_string(NftLoglevel loglevel)
 NftLoglevel nft_log_level_from_string(const char *name)
 {
         if(!name)
-                NFT_LOG_NULL(-1);
+                return L_INVALID;
 
         NftLoglevel res;
 
@@ -304,7 +307,7 @@ NftLoglevel nft_log_level_from_string(const char *name)
         }
 
         NFT_LOG(L_ERROR, "invalid loglevel name: \"%s\"", name);
-        return -1;
+        return L_INVALID;
 }
 
 
