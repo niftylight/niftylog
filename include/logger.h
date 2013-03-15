@@ -101,23 +101,23 @@ typedef enum
         L_INVALID = -1,
         /** maximum-entry always at beginning of list */
         L_MAX,
-        /** very very noisy output - don't send this in bug reports ;) */
+        /** <b>"verynoisy"</b> - very very noisy output - don't send this in bug reports ;) */
         L_VERY_NOISY,
-        /** jabberish or oftenly repeating notifications */
+        /** <b>"noisy"</b> - jabberish or oftenly repeating notifications */
         L_NOISY,
-        /** internal working notifications */
+        /** <b>"debug"</b> - internal working notifications */
         L_DEBUG,
-        /* rough internal working */
+        /** <b>"verbose"</b> - rough internal working */
         L_VERBOSE,
-        /** notification that's informative to the user but not vital */
+        /** <b>"info"</b> - notification that's informative to the user but not vital */
         L_INFO,
-        /** notfication the user should read */
+        /** <b>"notice"</b> - notfication the user should read */
         L_NOTICE,
-        /** only print warnings & errors */
+        /** <b>"warning"</b> - only print warnings & errors */
         L_WARNING,
-        /** only important errors are printed */
+        /** <b>"error"</b> - only important errors are printed */
         L_ERROR,
-        /** no messages are printed */
+        /** <b>"quiet"</b> - no messages are printed */
         L_QUIET,
         /** LEAVE THIS AT THE END OF THE LIST */
         L_MIN
