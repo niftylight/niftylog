@@ -73,6 +73,7 @@
 #define _NFT_LOGGER_H
 
 
+#include <stdbool.h>
 #include <stdarg.h>
 #include <errno.h>
 #include <string.h>
