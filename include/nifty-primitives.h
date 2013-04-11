@@ -55,6 +55,7 @@
 #ifndef _NFT_PRIMITIVES
 #define _NFT_PRIMITIVES
 
+#include <stdbool.h>
 
 /** @todo remove this preprocessor macro & use clean structure instead */
 #ifndef NFT_RESULT_DEFINED

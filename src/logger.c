@@ -312,5 +312,30 @@ NftLoglevel nft_log_level_from_string(const char *name)
 
 
 /**
+ * find out if loglevel a is more noisy than loglevel b
+ *
+ * @param a NftLoglevel
+ * @param b NftLoglevel
+ * @result true if a is more noisy than b, false if not or if loglevels are equal
+ */
+bool nft_log_level_is_noisier_than(NftLoglevel a, NftLoglevel b)
+{
+		if(a >= L_MIN || a <= L_MAX)
+        {
+                NFT_LOG(L_ERROR, "Invalid loglevel: %d", a);
+                return false;
+        }
+
+		if(b >= L_MIN || b <= L_MAX)
+        {
+                NFT_LOG(L_ERROR, "Invalid loglevel: %d", b);
+                return false;
+        }
+		   
+		return a < b ? true : false;
+}
+
+
+/**
  * @}
  */
