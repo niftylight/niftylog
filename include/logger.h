@@ -141,6 +141,8 @@ NftLoglevel                     nft_log_level_get();
 const char                     *nft_log_level_to_string(NftLoglevel loglevel);
 NftLoglevel                     nft_log_level_from_string(const char *name);
 bool                            nft_log_level_is_noisier_than(NftLoglevel a, NftLoglevel b);
+void                            nft_log_print_loglevels();
+
 
 #endif /* _NFT_LOGGER_H */
 

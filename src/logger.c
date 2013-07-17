@@ -337,5 +337,19 @@ bool nft_log_level_is_noisier_than(NftLoglevel a, NftLoglevel b)
 
 
 /**
+ * print list of valid loglevel names to stdout
+ *
+ * @param none
+ * @result none
+ */
+void nft_log_print_loglevels()
+{
+        NftLoglevel i;
+        for(i = L_MAX + 1; i < L_MIN - 1; i++)
+                printf("%s ", nft_log_level_to_string(i));
+}
+
+
+/**
  * @}
  */
