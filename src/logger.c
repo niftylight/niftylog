@@ -168,13 +168,12 @@ void nft_log_va_debug(NftLoglevel level,
         {
                 _func(_uptr, level, file, func, line, tmp);
         }
-        /* print to stderr */
-        else
-        {
-                fprintf(stderr, "%s:%d %s() %s: %s\n",
-                        file,
-                        line, func, nft_log_level_to_string(level), tmp);
-        }
+		
+        /* print to stderr */        
+		fprintf(stderr, "%s:%d %s() %s: %s\n",
+				file,
+				line, func, nft_log_level_to_string(level), tmp);
+
 }
 
 
