@@ -152,6 +152,21 @@ NftResult nft_log_mechanism_set(const char *name)
 				return NFT_FAILURE;
 		}
 
+		/* "list" mechanism to print a list of all mechanisms ? */
+		if(strcmp(name, "list") == 0)
+		{
+				/* print list */
+				printf("================================="
+				       "=================================\n"
+				       " available logging mechanisms:\n\t");
+				nft_log_mechanism_print_list();
+				printf("================================="
+				       "=================================\n");
+
+				/* use default mechanism */
+				name = NFT_LOG_DEFAULT_MECHANISM;
+		}
+		
 		/* same mechanism as before? */
 		if(_current && strcmp(name, _current->name) == 0)
 				return NFT_SUCCESS;
