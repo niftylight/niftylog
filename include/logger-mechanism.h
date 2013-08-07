@@ -74,7 +74,7 @@ typedef struct
 		/** name of this mechanism */
 		const char          name[64];
 		/** logging function of this mechanism */
-		void                (*func) (NftLoglevel level, const char *msg);
+		void                (*log) (NftLoglevel level, const char *msg);
 		/** initialization function of this mechanism */
 		NftResult           (*init)(void);
 		/** deinitialization function of this mechanism */

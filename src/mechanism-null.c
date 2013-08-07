@@ -71,7 +71,7 @@ NftLogMechanism	*nft_log_mechanism_null()
 static NftLogMechanism _mechanism =
 {
 		.name = "null",
-		.func = NULL,
+		.log = NULL,
 		.init = NULL,
 		.deinit = NULL,
 };

@@ -60,7 +60,7 @@ static NftLogMechanism _mechanism;
 
 
 /** main logging function */
-static void _func(NftLoglevel level, const char *msg)
+static void _log(NftLoglevel level, const char *msg)
 {
 		/* print to stderr */        
 		fprintf(stderr, "%s\n", msg);
@@ -82,7 +82,7 @@ NftLogMechanism	*nft_log_mechanism_stderr()
 static NftLogMechanism _mechanism =
 {
 		.name = "stderr",
-		.func = &_func,
+		.log = &_log,
 		.init = NULL,
 		.deinit = NULL,
 };

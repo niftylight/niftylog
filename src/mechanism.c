@@ -122,8 +122,8 @@ void mechanism_log(NftLoglevel level, char *msg)
 				return;
 		
 		/* log */
-		if(_current->func)
-				_current->func(level, msg);
+		if(_current->log)
+				_current->log(level, msg);
 }
 
 
