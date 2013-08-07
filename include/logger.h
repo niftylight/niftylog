@@ -93,7 +93,7 @@ typedef enum
 {
         /** used to represent invalid loglevels */
         L_INVALID = -1,
-        /** maximum-entry always at beginning of list */
+        /** placeholder - always at beginning of the list */
         L_MAX,
         /** <b>"verynoisy"</b> - very very noisy output - don't send this in bug reports ;) */
         L_VERY_NOISY,
@@ -111,9 +111,9 @@ typedef enum
         L_WARNING,
         /** <b>"error"</b> - only important errors are printed */
         L_ERROR,
-        /** <b>"quiet"</b> - no messages are printed */
+        /** <b>"quiet"</b> - use wants no messages to be printed */
         L_QUIET,
-        /** LEAVE THIS AT THE END OF THE LIST */
+        /* placeholder - always at end of the list */
         L_MIN
 } NftLoglevel;
 

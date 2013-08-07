@@ -130,7 +130,7 @@ static void _log_va(NftLoglevel level,
 		/* no critical message */
 		if(level < L_WARNING)
 		{
-				mechanism_log(level, tmp);
+				_mechanism_log(level, tmp);
 		}
 		/* warning or error message, print loglevel */
 		else
@@ -147,7 +147,7 @@ static void _log_va(NftLoglevel level,
 						nft_log_level_to_string(level), tmp);
 				
 				/* use current logging mechanism to print message */
-				mechanism_log(level, message);
+				_mechanism_log(level, message);
 		}
 		
 }
@@ -197,17 +197,18 @@ static void _log_va_debug(NftLoglevel level,
 				line, func, nft_log_level_to_string(level), tmp);
 		
 		/* use current logging mechanism to print message */
-		mechanism_log(level, message);
+		_mechanism_log(level, message);
 }
 
 
 /**
- * main logging function - don't call directly - use NFT_LOG() instead
- * @param level @ref NftLoglevel this message should have
- * @param file __FILE__
- * @param func __FUNC__
- * @param line __line__
- * @param msg the log-message to output
+ * main logging function 
+ * @note DON'T CALL FUNCTION DIRECTLY! - Use the NFT_LOG() macro instead!
+ * @param[in] level @ref NftLoglevel this message should have
+ * @param[in] file __FILE__
+ * @param[in] func __FUNC__
+ * @param[in] line __line__
+ * @param[in] msg the log-message to output
  */
 void nft_log(NftLoglevel level,
              const char *file,
@@ -235,8 +236,8 @@ void nft_log(NftLoglevel level,
 
 /**
  * register an external logging function
- * @param func a @ref NftLogFunc that should output a string to the user in some way
- * @param userdata arbitrary pointer that will be passed to the NftLogFunc
+ * @param[in] func a @ref NftLogFunc that should output a string to the user in some way
+ * @param[in] userdata arbitrary pointer that will be passed to the NftLogFunc
  */
 void nft_log_func_register(NftLogFunc * func, void *userdata)
 {
@@ -246,8 +247,8 @@ void nft_log_func_register(NftLogFunc * func, void *userdata)
 
 
 /**
- * set loglevel
- * @param loglevel current @ref NftLoglevel
+ * set current loglevel
+ * @param[in] loglevel current @ref NftLoglevel
  * @result NFT_SUCCESS or NFT_FAILURE
  */
 NftResult nft_log_level_set(NftLoglevel loglevel)
@@ -275,8 +276,8 @@ NftResult nft_log_level_set(NftLoglevel loglevel)
 
 
 /**
- * get loglevel
- * @result the current @ref NftLoglevel or -1 upon error
+ * get current loglevel
+ * @result the current @ref NftLoglevel
  */
 NftLoglevel nft_log_level_get()
 {
@@ -294,7 +295,7 @@ NftLoglevel nft_log_level_get()
 /**
  * return name of current loglevel
  *
- * @p loglevel loglevel
+ * @param[in] loglevel loglevel
  * @result string with loglevel name or NULL upon error
  */
 const char *nft_log_level_to_string(NftLoglevel loglevel)
@@ -312,7 +313,7 @@ const char *nft_log_level_to_string(NftLoglevel loglevel)
 /**
  * return loglevel of loglevel-name
  *
- * @p name string with lowercase loglevel-name
+ * @param[in] name string with lowercase loglevel-name
  * @result loglevel or -1 upon error
  */
 NftLoglevel nft_log_level_from_string(const char *name)
@@ -340,8 +341,8 @@ NftLoglevel nft_log_level_from_string(const char *name)
 /**
  * find out if loglevel a is more noisy than loglevel b
  *
- * @param a NftLoglevel
- * @param b NftLoglevel
+ * @param[in] a NftLoglevel
+ * @param[in] b NftLoglevel
  * @result true if a is more noisy than b, false if not or if loglevels are equal
  */
 bool nft_log_level_is_noisier_than(NftLoglevel a, NftLoglevel b)
@@ -365,7 +366,7 @@ bool nft_log_level_is_noisier_than(NftLoglevel a, NftLoglevel b)
 /**
  * print list of valid loglevel names to stdout
  *
- * @result none
+ * @result print list of loglevels to stdout
  */
 void nft_log_print_loglevels()
 {

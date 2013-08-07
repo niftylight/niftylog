@@ -85,7 +85,7 @@ static NftLogMechanism *_current;
  * @param[in] name printable name of mechanism
  * @result NftLogMechanism or NULL
  */ 
-static NftLogMechanism *get(const char *name)
+static NftLogMechanism *_get(const char *name)
 {
 		if(!name)
 				return NULL;
@@ -104,12 +104,13 @@ static NftLogMechanism *get(const char *name)
 }
 
 
-/*
+/**
  * log message using current mechanism
  *
  * @param[in] msg the message to log
+ * @param[in] level the NftLoglevel of the message
  */
-void mechanism_log(NftLoglevel level, char *msg)
+void _mechanism_log(NftLoglevel level, char *msg)
 {
 		/* get currently set logging mechanism name */
 		char *mechanism_name;
@@ -147,6 +148,9 @@ void nft_log_mechanism_print_list()
 
 /**
  * set current logging mechanism
+ *
+ * @param[in] name The valid name of a mechanism (s. @ref nft_log_mechanisms)
+ * @result NFT_SUCCESS or NFT_FAILURE
  */
 NftResult nft_log_mechanism_set(const char *name)
 {
@@ -183,7 +187,7 @@ NftResult nft_log_mechanism_set(const char *name)
 		}
 		
 		/* get new mechanism */
-		if(!(_current = get(name)))
+		if(!(_current = _get(name)))
 		{
 				fprintf(stderr, "Unknown logging mechanism: \"%s\"\n", name);
 				return NFT_FAILURE;
