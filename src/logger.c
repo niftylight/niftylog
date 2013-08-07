@@ -365,7 +365,6 @@ bool nft_log_level_is_noisier_than(NftLoglevel a, NftLoglevel b)
 /**
  * print list of valid loglevel names to stdout
  *
- * @param none
  * @result none
  */
 void nft_log_print_loglevels()

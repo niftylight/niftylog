@@ -55,10 +55,6 @@
  * - use @ref NFT_LOG() to output printable strings to the user. \n
  * - use @ref nft_log_level_to_string() and nft_log_level_from_string() to 
  *   convert between @ref NftLoglevel and their printable names
- * @todo introduce pre-defined logging mechanisms to choose from (stderr, 
- * syslog, null,...)
- * @todo seperate nft_log_func_register() to feed logging into the library and
- * nft_log_mechanism_register() to use a custom output mechanism
  *     
  * Messages are printed to stderr as long as you don't register your own 
  * @ref NftLogFunc using @ref nft_log_func_register()
