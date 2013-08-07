@@ -54,6 +54,7 @@
 #include <stdlib.h>
 #include "logger-mechanism.h"
 #include "_mechanism.h"
+#include "_mechanism-syslog.h"
 #include "_mechanism-stderr.h"
 #include "_mechanism-null.h"
 
@@ -67,6 +68,7 @@ static struct LogMechanisms
 {
 		{ &nft_log_mechanism_null },
 		{ &nft_log_mechanism_stderr },
+		{ &nft_log_mechanism_syslog },
 		{ NULL }
 };
 
