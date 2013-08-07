@@ -41,52 +41,12 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/**
- * @file mechanism-stderr.c
- */
 
-/**
- * @addtogroup logger_mechanism_stderr
- * @{
- */
-
-#include <stdio.h>
-#include "logger-mechanism.h"
+#ifndef _MECHANISM_H
+#define _MECHANISM_H
 
 
-static NftLogMechanism _mechanism;
+void                mechanism_log(NftLoglevel level, char *msg);
 
 
-
-
-/** main logging function */
-static void _func(NftLoglevel level, const char *msg)
-{
-		/* print to stderr */        
-		fprintf(stderr, "%s\n", msg);
-}
-
-
-/** 
- * return descriptor for this mechanism 
- * @result NftLogMechanism descriptor 
- */
-NftLogMechanism	*nft_log_mechanism_stderr()
-{
-		return &_mechanism;
-}
-
-
-
-/* descriptor */
-static NftLogMechanism _mechanism =
-{
-		.name = "stderr",
-		.func = &_func,
-		.init = NULL,
-		.deinit = NULL,
-};
-
-/**
- * @}
- */
+#endif /* _MECHANISM_H */

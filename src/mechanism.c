@@ -53,8 +53,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "logger-mechanism.h"
+#include "_mechanism.h"
 #include "_mechanism-stderr.h"
 #include "_mechanism-null.h"
+
 
 
 /** list of NftLogMechanism getters for various supported mechanisms */
@@ -100,28 +102,12 @@ static NftLogMechanism *get(const char *name)
 }
 
 
-/**
- * print a list of all available logging mechanisms to stdout
- */
-void nft_log_mechanism_print_list()
-{
-		/* walk through getters */
-        for(struct LogMechanisms *mlist = nft_log_mechanisms; *mlist->get; mlist++)
-		{
-				NftLogMechanism *m = (*mlist->get)();
-				printf("%s ", m->name);
-		}
-
-		printf("\n");
-}
-
-
-/**
+/*
  * log message using current mechanism
  *
  * @param[in] msg the message to log
  */
-void nft_log_mechanism_log(char *msg)
+void mechanism_log(NftLoglevel level, char *msg)
 {
 		/* get currently set logging mechanism name */
 		char *mechanism_name;
@@ -137,7 +123,23 @@ void nft_log_mechanism_log(char *msg)
 		
 		/* log */
 		if(_current->func)
-				_current->func(msg);
+				_current->func(level, msg);
+}
+
+
+/**
+ * print a list of all available logging mechanisms to stdout
+ */
+void nft_log_mechanism_print_list()
+{
+		/* walk through getters */
+        for(struct LogMechanisms *mlist = nft_log_mechanisms; *mlist->get; mlist++)
+		{
+				NftLogMechanism *m = (*mlist->get)();
+				printf("%s ", m->name);
+		}
+
+		printf("\n");
 }
 
 

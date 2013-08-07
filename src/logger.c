@@ -56,6 +56,9 @@
 #include "logger-mechanism.h"
 #include "logger.h"
 #include "config.h"
+#include "_mechanism.h"
+
+
 
 /** maximum length of log-message in bytes */
 #define MAX_MSG_SIZE    4096
@@ -127,7 +130,7 @@ void nft_log_va(NftLoglevel level,
 		/* no critical message */
 		if(level < L_WARNING)
 		{
-				nft_log_mechanism_log(tmp);
+				mechanism_log(level, tmp);
 		}
 		/* warning or error message, print loglevel */
 		else
@@ -144,7 +147,7 @@ void nft_log_va(NftLoglevel level,
 						nft_log_level_to_string(level), tmp);
 				
 				/* use current logging mechanism to print message */
-				nft_log_mechanism_log(message);
+				mechanism_log(level, message);
 		}
 		
 }
@@ -194,7 +197,7 @@ void nft_log_va_debug(NftLoglevel level,
 				line, func, nft_log_level_to_string(level), tmp);
 		
 		/* use current logging mechanism to print message */
-		nft_log_mechanism_log(message);
+		mechanism_log(level, message);
 }
 
 
