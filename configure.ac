@@ -26,8 +26,8 @@ AM_INIT_AUTOMAKE([color-tests dist-bzip2 parallel-tests silent-rules -Wno-portab
 # --------------------------------
 
 # infos
-PACKAGE_DESCRIPTION="lightweight & simple logging/debugging library"
-PACKAGE_DESCRIPTION_LONG="lightweight & simple library to implement logging/debugging output for new or existing applications"
+PACKAGE_DESCRIPTION="lightweight logging/debugging library"
+PACKAGE_DESCRIPTION_LONG="lightweight library to implement logging/debugging output for new or existing applications"
 
 AC_SUBST([PACKAGE_DESCRIPTION], [${PACKAGE_DESCRIPTION}], [package description])
 AC_SUBST([PACKAGE_DESCRIPTION_LONG], [${PACKAGE_DESCRIPTION_LONG}], [long package description])
@@ -60,6 +60,13 @@ PKG_PROG_PKG_CONFIG([0.25])
 if test -z "${PKG_CONFIG}" ; then
   AC_MSG_ERROR([*** pkg-config not found. See http://www.freedesktop.org/software/pkgconfig/ or check your distribution.])
 fi
+
+AC_CHECK_PROGS([DOXYGEN], [doxygen])
+if test -z "$DOXYGEN"; then 
+  AC_MSG_WARN([Doxygen not found - continuing without Doxygen support])
+fi
+AM_CONDITIONAL([HAVE_DOXYGEN], [test -n "$DOXYGEN"])
+
 
 
 # --------------------------------
@@ -129,8 +136,7 @@ AM_CONDITIONAL(DEBUG, test x$debug = xtrue)
 # --------------------------------
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES(
-[
-	  Doxyfile
+[	  
 	  Makefile
 	  include/Makefile
 	  include/logger-version.h
@@ -138,6 +144,8 @@ AC_CONFIG_FILES(
 	  src/version.c
 	  tests/Makefile
 	  $PACKAGE.pc
+      doc/Doxyfile
+      doc/Makefile
 	  debian/control.tmpl
 	  gentoo/dev-libs/niftylog/niftylog-9999.ebuild
 ])
