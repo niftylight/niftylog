@@ -42,7 +42,7 @@
  */
 
 /**
- * @file logger-mechanism-stderr.h
+ * @file _mechanism-null.h
  */
 
 /**
