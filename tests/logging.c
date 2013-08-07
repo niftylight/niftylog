@@ -41,63 +41,80 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/**
- * @file logger-mechanism.h
- */
+#include <stdio.h>
+#include <stdlib.h>
+#include "niftylog.h"
 
-/**
- * @addtogroup logger
- * @{ 
- * @defgroup logger_mechanism NftLogMechanism
- * @brief API to provide different logging mechanisms
- * Add new logging mechanisms:
- * - add mechanism-foo.c and _mechanism-foo.h to /src directory
- *   (and to list in src/Makefile.am) 
- * - add the NftLogMechanism descriptor getter function to
- *   mechanism.c:nft_log_mechanisms
- * @{
- */
-
-#ifndef _NFT_LOG_MECHANISM_H
-#define _NFT_LOG_MECHANISM_H
-
-#include "logger.h"
+#define MSG_VISIBLE		"This should be visible"
+#define MSG_INVISIBLE	"This should *not* be visible"
+#define MSG(l1,l2)		(nft_log_level_is_noisier_than(l1, l2) ? MSG_VISIBLE : MSG_INVISIBLE)
+#define LOGWRAP(l1,l2)	NFT_LOG(l1, MSG(l2, l1))
 
 
-/** default logging mechanism */
-#define NFT_LOG_DEFAULT_MECHANISM	"stderr"
-
-
-/** a logging mechanism descriptor */
-typedef struct
+/** set loglevel */
+static bool _level_set(NftLoglevel l)
 {
-		/** name of this mechanism */
-		const char          name[64];
-		/** logging function of this mechanism */
-		void                (*func) (const char *msg);
-		/** initialization function of this mechanism */
-		NftResult           (*init)(void);
-		/** deinitialization function of this mechanism */
-		void                (*deinit)(void);
-		/** set to true if mechanism is initialized */
-		bool                initialized;
-}NftLogMechanism;
+		/* set loglevel */
+		if(!nft_log_level_set(l))
+		{
+				fprintf(stderr, "Failed to nft_log_level_set(\"%s\")!\n",
+				        		nft_log_level_to_string(l));
+				return false;
+		}
+
+		/* check if loglevel has been set correctly */
+		if(nft_log_level_get() != l)
+		{
+				fprintf(stderr, "Set loglevel != current loglevel!\n");
+				return false;
+		}
+
+		/* check if environment variable was set correctly */
+		char *env;
+		if(!(env = getenv(NFT_LOG_ENV_LEVEL)))
+		{
+				fprintf(stderr, "environment variable \"%s\" is empty but should be set to \"%s\"!\n",
+				        		NFT_LOG_ENV_LEVEL, nft_log_level_to_string(l));
+				return false;
+		}
+		
+		if(strcmp(env, nft_log_level_to_string(l)) != 0)
+		{
+				fprintf(stderr, "\"%s\" environment variable should be \"%s\" but is \"%s\"!\n",
+				        		NFT_LOG_ENV_LEVEL, nft_log_level_to_string(l), env);
+				return false;
+		}
+
+		return true;
+}
 
 
+/** set loglevel l and output message at all loglevels */
+static bool _log_out(NftLoglevel l)
+{
+		if(!_level_set(l))
+				return false;
+
+		for(NftLoglevel a = L_MAX+1; a < L_MIN; a++)
+		{
+			//printf("Current loglevel: %s - Message loglevel: %s\n",
+			//       	nft_log_level_to_string(l), nft_log_level_to_string(a));
+			LOGWRAP(a, l);
+		}
+		
+		return true;
+}
 
 
+int main(int argc, char *argv[])
+{
+		NFT_LOG_CHECK_VERSION;
 
+		/* set all loglevels and output messages */
+		for(NftLoglevel l = L_MAX+1; l < L_MIN; l++)
+			if(!_log_out(l))
+				return EXIT_FAILURE;
+		
+		return EXIT_SUCCESS;
+}
 
-
-void                nft_log_mechanism_print_list();
-void                nft_log_mechanism_log(char *msg);
-NftResult           nft_log_mechanism_set(const char *name);
-
-
-#endif /* _NFT_LOG_MECHANISM_H */
-
-
-/**
- * @}
- * @}
- */

@@ -50,11 +50,147 @@
  * @{
  */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include "logger-mechanism.h"
+#include "_mechanism-stderr.h"
+#include "_mechanism-null.h"
+
+
+/** list of NftLogMechanism getters for various supported mechanisms */
+static struct LogMechanisms
+{
+		NftLogMechanism *	(*get)(void);
+}nft_log_mechanisms[] =
+{
+		{ &nft_log_mechanism_null },
+		{ &nft_log_mechanism_stderr },
+		{ NULL }
+};
+
+
+/** currently used logging mechanism */
+static NftLogMechanism *_current;
 
 
 
 
+/**
+ * get logging mechanism descriptor by name
+ *
+ * @param[in] name printable name of mechanism
+ * @result NftLogMechanism or NULL
+ */ 
+static NftLogMechanism *get(const char *name)
+{
+		if(!name)
+				return NULL;
+		
+		/* walk through getters */
+        for(struct LogMechanisms *mlist = nft_log_mechanisms; *mlist->get; mlist++)
+		{
+				NftLogMechanism *m = (*mlist->get)();
+				if(strcmp(name, m->name) == 0)
+				{
+						return m;
+				}
+		}
 
+		return NULL;
+}
+
+
+/**
+ * print a list of all available logging mechanisms to stdout
+ */
+void nft_log_mechanism_print_list()
+{
+		/* walk through getters */
+        for(struct LogMechanisms *mlist = nft_log_mechanisms; *mlist->get; mlist++)
+		{
+				NftLogMechanism *m = (*mlist->get)();
+				printf("%s ", m->name);
+		}
+
+		printf("\n");
+}
+
+
+/**
+ * log message using current mechanism
+ *
+ * @param[in] msg the message to log
+ */
+void nft_log_mechanism_log(char *msg)
+{
+		/* get currently set logging mechanism name */
+		char *mechanism_name;
+		if(!(mechanism_name = getenv(NFT_LOG_ENV_MECHANISM)))
+		{
+				/* use default mechanism if none is set already */
+				mechanism_name = NFT_LOG_DEFAULT_MECHANISM;
+		}
+
+		/* set current mechanism (will exit immediately if not necessary */
+		if(!nft_log_mechanism_set(mechanism_name))
+				return;
+		
+		/* log */
+		if(_current->func)
+				_current->func(msg);
+}
+
+
+/**
+ * set current logging mechanism
+ */
+NftResult nft_log_mechanism_set(const char *name)
+{
+		if(!name)
+		{
+				fprintf(stderr, "No log mechanism name provided!\n");
+				return NFT_FAILURE;
+		}
+
+		/* same mechanism as before? */
+		if(_current && strcmp(name, _current->name) == 0)
+				return NFT_SUCCESS;
+		
+		/* deinitialize current mechanism */
+		if(_current && _current->deinit)
+		{
+				_current->deinit();
+				_current->initialized = false;
+		}
+		
+		/* get new mechanism */
+		if(!(_current = get(name)))
+		{
+				fprintf(stderr, "Unknown logging mechanism: \"%s\"\n", name);
+				return NFT_FAILURE;
+		}
+
+		/* initialize mechanism */
+		if(_current->init)
+		{
+				if(!_current->init())
+				{
+						fprintf(stderr, "Failed to initialize mechanism \"%s\"\n", name);
+						return NFT_FAILURE;
+				}
+
+				_current->initialized = true;
+		}
+
+		/* set environment variable */
+        static char tmp[64];	
+        snprintf(tmp, sizeof(tmp)-1, "%s=%s", NFT_LOG_ENV_MECHANISM, name);
+
+        if(putenv(tmp) == -1)
+                return NFT_FAILURE;
+		
+		return NFT_SUCCESS;
+}
 
 /**
  * @}

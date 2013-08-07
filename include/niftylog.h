@@ -62,6 +62,7 @@
 
 
 #include "logger.h"
+#include "logger-mechanism.h"
 #include "logger-version.h"
 
 

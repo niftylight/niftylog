@@ -22,6 +22,8 @@ EXTRA_DIST =
 lib@PACKAGE@_la_SOURCES = \
 	version.c \
 	mechanism.c \
+	mechanism-stderr.c \
+	mechanism-null.c \
 	logger.c
 
 

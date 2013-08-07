@@ -50,11 +50,10 @@
  * @{
  */
 
-#include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <stdarg.h>
 #include <malloc.h>
+#include "logger-mechanism.h"
 #include "logger.h"
 #include "config.h"
 
@@ -111,7 +110,7 @@ void nft_log_va(NftLoglevel level,
         }
 
         /* print log-string */
-        if(vsnprintf((char *) tmp, MAX_MSG_SIZE, msg, args) < 0)
+        if(vsnprintf((char *) tmp, MAX_MSG_SIZE-1, msg, args) < 0)
         {
                 fprintf(stderr, "Failed to print message: \"%s\"", msg);
                 perror("vsnprintf");
@@ -123,18 +122,31 @@ void nft_log_va(NftLoglevel level,
         if(_func)
         {
                 _func(_uptr, level, file, func, line, tmp);
-        }
-        /* print to stderr */
-        else
-        {
-                /* no critical message */
-                if(level < L_WARNING)
-                        fprintf(stderr, "%s\n", tmp);
-                /* warning or error message, print loglevel */
-                else
-                        fprintf(stderr, "%s: %s\n",
-                                nft_log_level_to_string(level), tmp);
-        }
+        }       
+
+		/* no critical message */
+		if(level < L_WARNING)
+		{
+				nft_log_mechanism_log(tmp);
+		}
+		/* warning or error message, print loglevel */
+		else
+		{
+				/* build message */
+				char *message;
+				if(!(message = alloca(MAX_MSG_SIZE)))
+				{
+						perror("alloca");
+						return;
+				}
+
+				snprintf(message, MAX_MSG_SIZE-1, "%s: %s",
+						nft_log_level_to_string(level), tmp);
+				
+				/* use current logging mechanism to print message */
+				nft_log_mechanism_log(message);
+		}
+		
 }
 
 
@@ -156,7 +168,7 @@ void nft_log_va_debug(NftLoglevel level,
         }
 
         /* print log-string */
-        if(vsnprintf((char *) tmp, MAX_MSG_SIZE, msg, args) < 0)
+        if(vsnprintf(tmp, MAX_MSG_SIZE-1, msg, args) < 0)
         {
                 perror("vsnprintf");
                 return;
@@ -168,12 +180,21 @@ void nft_log_va_debug(NftLoglevel level,
         {
                 _func(_uptr, level, file, func, line, tmp);
         }
-		
-        /* print to stderr */        
-		fprintf(stderr, "%s:%d %s() %s: %s\n",
+
+		/* build message */
+		char *message;
+		if(!(message = alloca(MAX_MSG_SIZE)))
+		{
+				perror("alloca");
+				return;
+		}
+
+		snprintf(message, MAX_MSG_SIZE-1, "%s:%d %s() %s: %s",
 				file,
 				line, func, nft_log_level_to_string(level), tmp);
-
+		
+		/* use current logging mechanism to print message */
+		nft_log_mechanism_log(message);
 }
 
 
@@ -236,13 +257,16 @@ NftResult nft_log_level_set(NftLoglevel loglevel)
         _level = loglevel;
 
         /* set new loglevel to environment variable */
-        static char tmp[64];
-        snprintf(tmp, 64, "%s=%s", NFT_LOG_ENVNAME,
+        static char tmp[64];		
+        snprintf(tmp, sizeof(tmp)-1, "%s=%s", NFT_LOG_ENV_LEVEL,
                  nft_log_level_to_string(loglevel));
 
-        if(putenv(tmp) == -1)
+        if(putenv(tmp) != 0)
+		{
+				perror("putenv");
                 return NFT_FAILURE;
-
+		}
+		
         return NFT_SUCCESS;
 }
 
@@ -254,7 +278,7 @@ NftResult nft_log_level_set(NftLoglevel loglevel)
 NftLoglevel nft_log_level_get()
 {
         /* valid environment variable set? */
-        NftLoglevel l = nft_log_level_from_string(getenv(NFT_LOG_ENVNAME));
+        NftLoglevel l = nft_log_level_from_string(getenv(NFT_LOG_ENV_LEVEL));
         if(l >= L_MIN || l <= L_MAX)
         {
                 return _level;
@@ -331,7 +355,7 @@ bool nft_log_level_is_noisier_than(NftLoglevel a, NftLoglevel b)
                 return false;
         }
 		   
-		return a < b ? true : false;
+		return a <= b ? true : false;
 }
 
 

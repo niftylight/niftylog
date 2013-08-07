@@ -72,7 +72,7 @@
 #ifndef _NFT_LOGGER_H
 #define _NFT_LOGGER_H
 
-
+#include <stdint.h>
 #include <stdbool.h>
 #include <stdarg.h>
 #include <errno.h>
@@ -81,8 +81,9 @@
 
 
 /** name of environment variable to hold loglevel */
-#define NFT_LOG_ENVNAME         "NFT_LOGLEVEL"
-
+#define NFT_LOG_ENV_LEVEL         "NFT_LOG_LEVEL"
+/** name of environment variable to hold mechanism */
+#define NFT_LOG_ENV_MECHANISM     "NFT_LOG_MECHANISM"
 
 /** available loglevels (used by @ref nft_log_level_set() and @ref NFT_LOG()) 
     (adjust also logger.c:_loglevel_names when adjusting this) */

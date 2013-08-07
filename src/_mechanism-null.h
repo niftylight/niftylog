@@ -42,59 +42,25 @@
  */
 
 /**
- * @file logger-mechanism.h
+ * @file logger-mechanism-stderr.h
  */
 
 /**
- * @addtogroup logger
+ * @addtogroup logger_mechanism
+ * @defgroup logger_mechanism_null null logging mechanism
+ * @brief dummy logging mechanism, doesn't log anything
  * @{ 
- * @defgroup logger_mechanism NftLogMechanism
- * @brief API to provide different logging mechanisms
- * Add new logging mechanisms:
- * - add mechanism-foo.c and _mechanism-foo.h to /src directory
- *   (and to list in src/Makefile.am) 
- * - add the NftLogMechanism descriptor getter function to
- *   mechanism.c:nft_log_mechanisms
- * @{
  */
 
-#ifndef _NFT_LOG_MECHANISM_H
-#define _NFT_LOG_MECHANISM_H
-
-#include "logger.h"
-
-
-/** default logging mechanism */
-#define NFT_LOG_DEFAULT_MECHANISM	"stderr"
-
-
-/** a logging mechanism descriptor */
-typedef struct
-{
-		/** name of this mechanism */
-		const char          name[64];
-		/** logging function of this mechanism */
-		void                (*func) (const char *msg);
-		/** initialization function of this mechanism */
-		NftResult           (*init)(void);
-		/** deinitialization function of this mechanism */
-		void                (*deinit)(void);
-		/** set to true if mechanism is initialized */
-		bool                initialized;
-}NftLogMechanism;
+#ifndef _NFT_LOG_MECHANISM_NULL_H
+#define _NFT_LOG_MECHANISM_NULL_H
 
 
 
+NftLogMechanism	*   nft_log_mechanism_null();
 
 
-
-
-void                nft_log_mechanism_print_list();
-void                nft_log_mechanism_log(char *msg);
-NftResult           nft_log_mechanism_set(const char *name);
-
-
-#endif /* _NFT_LOG_MECHANISM_H */
+#endif /* _NFT_LOG_MECHANISM_NULL_H */
 
 
 /**
