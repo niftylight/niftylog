@@ -96,62 +96,6 @@ static NftLoglevel _level;
 
 
 
-/**
- * va_list version of nft_log
- */
-static void _log_va(NftLoglevel level,
-                const char *file,
-                const char *func, int line, const char *msg, va_list args)
-{
-
-
-        char *tmp;
-        if(!(tmp = alloca(MAX_MSG_SIZE)))
-        {
-                perror("alloca");
-                return;
-        }
-
-        /* print log-string */
-        if(vsnprintf((char *) tmp, MAX_MSG_SIZE-1, msg, args) < 0)
-        {
-                fprintf(stderr, "Failed to print message: \"%s\"", msg);
-                perror("vsnprintf");
-                return;
-        }
-
-        /* if an external function is registered, pass everything through to it 
-         */
-        if(_func)
-        {
-                _func(_uptr, level, file, func, line, tmp);
-        }       
-
-		/* no critical message */
-		if(level < L_WARNING)
-		{
-				_mechanism_log(level, tmp);
-		}
-		/* warning or error message, print loglevel */
-		else
-		{
-				/* build message */
-				char *message;
-				if(!(message = alloca(MAX_MSG_SIZE)))
-				{
-						perror("alloca");
-						return;
-				}
-
-				snprintf(message, MAX_MSG_SIZE-1, "%s: %s",
-						nft_log_level_to_string(level), tmp);
-				
-				/* use current logging mechanism to print message */
-				_mechanism_log(level, message);
-		}
-		
-}
-
 
 /**
  * va_list version of nft_log (more detailed version)
@@ -227,10 +171,74 @@ void nft_log(NftLoglevel level,
         if(lcur <= L_DEBUG)
                 _log_va_debug(level, file, func, line, msg, ap);
         else
-                _log_va(level, file, func, line, msg, ap);
+                nft_log_va(level, file, func, line, msg, ap);
 
         va_end(ap);
 
+}
+
+
+/**
+ * va_list version of nft_log
+ *
+ * @param[in] level @ref NftLoglevel this message should have
+ * @param[in] file __FILE__
+ * @param[in] func __FUNC__
+ * @param[in] line __line__
+ * @param[in] msg the log-message to output
+ * @param[in] args va_list arguments
+ */
+void nft_log_va(NftLoglevel level,
+                const char *file,
+                const char *func, int line, const char *msg, va_list args)
+{
+
+
+        char *tmp;
+        if(!(tmp = alloca(MAX_MSG_SIZE)))
+        {
+                perror("alloca");
+                return;
+        }
+
+        /* print log-string */
+        if(vsnprintf((char *) tmp, MAX_MSG_SIZE-1, msg, args) < 0)
+        {
+                fprintf(stderr, "Failed to print message: \"%s\"", msg);
+                perror("vsnprintf");
+                return;
+        }
+
+        /* if an external function is registered, pass everything through to it 
+         */
+        if(_func)
+        {
+                _func(_uptr, level, file, func, line, tmp);
+        }       
+
+		/* no critical message */
+		if(level < L_WARNING)
+		{
+				_mechanism_log(level, tmp);
+		}
+		/* warning or error message, print loglevel */
+		else
+		{
+				/* build message */
+				char *message;
+				if(!(message = alloca(MAX_MSG_SIZE)))
+				{
+						perror("alloca");
+						return;
+				}
+
+				snprintf(message, MAX_MSG_SIZE-1, "%s: %s",
+						nft_log_level_to_string(level), tmp);
+				
+				/* use current logging mechanism to print message */
+				_mechanism_log(level, message);
+		}
+		
 }
 
 

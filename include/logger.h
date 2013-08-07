@@ -137,6 +137,7 @@ typedef void                    (NftLogFunc) (void *userdata, NftLoglevel level,
 
 
 void                            nft_log(NftLoglevel level, const char *file, const char *func, int line, const char *msg, ...);
+void                            nft_log_va(NftLoglevel level, const char *file, const char *func, int line, const char *msg, va_list args);
 void                            nft_log_func_register(NftLogFunc * func, void *userdata);
 NftResult                       nft_log_level_set(NftLoglevel loglevel);
 NftLoglevel                     nft_log_level_get();
