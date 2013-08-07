@@ -6,7 +6,7 @@
 # release version
 MAJOR=0
 MINOR=1
-MICRO=2
+MICRO=3
 
 ######################
 # libtool/API version
@@ -16,11 +16,11 @@ MICRO=2
 # The implementation number of the current interface.
 API_REVISION=1
 # The most recent interface number that this library implements.
-API_CURRENT=1
+API_CURRENT=2
 # The difference between the newest and oldest interfaces that this library 
 # implements. In other words, the library implements all the interface numbers 
 # in the range from number current - age to current.
-API_AGE=0
+API_AGE=1
 
 
 # ----------------------------------------------
