@@ -47,8 +47,10 @@
 
 /**
  * @addtogroup logger_mechanism
- * @defgroup logger_mechanism_null null logging mechanism
- * @brief dummy logging mechanism, doesn't log anything
+ * @{ 
+ * @defgroup logger_mechanism_null null
+ * @brief dummy logging mechanism. This doesn't log anything and is used for
+ * debugging purposes or to supress any log output. 
  * @{ 
  */
 

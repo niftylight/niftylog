@@ -50,11 +50,23 @@
  * @{ 
  * @defgroup logger_mechanism NftLogMechanism
  * @brief API to provide different logging mechanisms
- * Add new logging mechanisms:
+ * 
+ * To choose a logging mechanism, either set the NFT_LOG_MECHANISM environment
+ * variable or use @ref nft_log_mechanism_set() from within the application.
+ *
+ * A list of available logging mechanisms is printed on stdout either by calling
+ * @ref nft_log_mechanism_print_list() or by setting NFT_LOG_MECHANISM="list"
+ *
+ * Each logging mechanism may use own NFT_LOG_... environment variables for
+ * configuration.
+ * 
+ * To add a new logging mechanism:
  * - add mechanism-foo.c and _mechanism-foo.h to /src directory
- *   (and to list in src/Makefile.am) 
- * - add the NftLogMechanism descriptor getter function to
- *   mechanism.c:nft_log_mechanisms
+ *   (and add to src/Makefile.am) 
+ * - add the @ref NftLogMechanism descriptor getter function to the
+ *   mechanism.c:nft_log_mechanisms structure
+ * - implement all needed functions described by the @ref NftLogMechanism descriptor
+ *   (any function can be NULL if it's not needed)
  * @{
  */
 
@@ -68,7 +80,7 @@
 #define NFT_LOG_DEFAULT_MECHANISM	"stderr"
 
 
-/** a logging mechanism descriptor */
+/** logging mechanism descriptor */
 typedef struct
 {
 		/** name of this mechanism */

@@ -47,7 +47,8 @@
 
 /**
  * @addtogroup logger_mechanism
- * @defgroup logger_mechanism_stderr log to stderr 
+ * @{ 
+ * @defgroup logger_mechanism_stderr stderr 
  * @brief logging mechanism to output messages to stderr 
  * @{ 
  */

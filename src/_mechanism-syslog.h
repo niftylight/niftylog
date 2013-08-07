@@ -47,8 +47,15 @@
 
 /**
  * @addtogroup logger_mechanism
- * @defgroup logger_mechanism_syslog log to syslog
+ * @{ 
+ * @defgroup logger_mechanism_syslog syslog
  * @brief logging mechanism to output messages to the syslog
+ * 
+ * To set the syslog "identity", the variable NFT_LOG_IDENT can be set. If unset,
+ * "niftylog" will be used as identity.
+ *
+ * This mechanism will always use LOG_USER as syslog facility. 
+ * The @ref NftLoglevel will be translated to the syslog priority.
  * @{ 
  */
 

@@ -55,13 +55,19 @@
  * - use @ref NFT_LOG() to output printable strings to the user. \n
  * - use @ref nft_log_level_to_string() and nft_log_level_from_string() to 
  *   convert between @ref NftLoglevel and their printable names
- *     
- * Messages are printed to stderr as long as you don't register your own 
- * @ref NftLogFunc using @ref nft_log_func_register()
- * \n Other convenience macros include:
- * - \ref NFT_LOG_PERROR("foo") - output perror("foo") using the logging mechanism \n
- * - \ref NFT_LOG_NULL(-1) - print error about a received NULL pointer and return -1 \n
- * - \ref NFT_TODO() - use this to print some generic "todo" messages to mark an unimplemented feature
+ * - a list of all loglevels can conveniently printed to stdout using
+ *   @ref nft_log_print_loglevels()
+ * - to compare two @ref NftLoglevel, the @ref nft_log_level_is_noisier_than()
+ *   function can be used
+ * 
+ * Messages are logged using the default mechanism (stderr). A custom
+ * @ref NftLogFunc can be registered using @ref nft_log_func_register() to enable
+ * the application to process logging messages additionally (e.g. to log to a GUI)
+ *
+ * Other convenience macros include:
+ * - \ref NFT_LOG_PERROR("foo") - output perror("foo") using the logging mechanism
+ * - \ref NFT_LOG_NULL(-1) - print error about a received NULL pointer and return -1
+ * - \ref NFT_TODO() - use this to print a generic "todo" message to mark an unimplemented feature
  * @{
  */
 
