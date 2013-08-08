@@ -158,11 +158,12 @@ void nft_log(NftLoglevel level,
              const char *file,
              const char *func, int line, const char *msg, ...)
 {
-        NftLoglevel lcur = nft_log_level_get();
+		/* get current loglevel */
+		NftLoglevel lcur = nft_log_level_get();
+				   
+		/* filter messages by loglevel */
         if(lcur > level)
                 return;
-
-
 
         /* build message */
         va_list ap;
@@ -265,19 +266,21 @@ NftResult nft_log_level_set(NftLoglevel loglevel)
         if(loglevel >= L_MIN || loglevel <= L_MAX)
                 return NFT_FAILURE;
 
+		/* the envirnoment variable always wins */
+		char *env;
+		if((env = getenv(NFT_LOG_ENV_LEVEL)))
+		{
+				/* only set loglevel if it's valid */
+				NftLoglevel l;
+				if((l = nft_log_level_from_string(env)) != L_INVALID)
+				{
+						_level = l;
+						return NFT_SUCCESS;
+				}
+		}
+		
         /* set new loglevel */
         _level = loglevel;
-
-        /* set new loglevel to environment variable */
-        static char tmp[64];		
-        snprintf(tmp, sizeof(tmp)-1, "%s=%s", NFT_LOG_ENV_LEVEL,
-                 nft_log_level_to_string(loglevel));
-
-        if(putenv(tmp) != 0)
-		{
-				perror("putenv");
-                return NFT_FAILURE;
-		}
 		
         return NFT_SUCCESS;
 }

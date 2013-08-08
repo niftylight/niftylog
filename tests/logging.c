@@ -68,23 +68,7 @@ static bool _level_set(NftLoglevel l)
 				fprintf(stderr, "Set loglevel != current loglevel!\n");
 				return false;
 		}
-
-		/* check if environment variable was set correctly */
-		char *env;
-		if(!(env = getenv(NFT_LOG_ENV_LEVEL)))
-		{
-				fprintf(stderr, "environment variable \"%s\" is empty but should be set to \"%s\"!\n",
-				        		NFT_LOG_ENV_LEVEL, nft_log_level_to_string(l));
-				return false;
-		}
 		
-		if(strcmp(env, nft_log_level_to_string(l)) != 0)
-		{
-				fprintf(stderr, "\"%s\" environment variable should be \"%s\" but is \"%s\"!\n",
-				        		NFT_LOG_ENV_LEVEL, nft_log_level_to_string(l), env);
-				return false;
-		}
-
 		return true;
 }
 
@@ -110,6 +94,9 @@ int main(int argc, char *argv[])
 {
 		NFT_LOG_CHECK_VERSION;
 
+		/* clear loglevel environment variable */
+		putenv(NFT_LOG_ENV_LEVEL);
+		
 		/* set all loglevels and output messages */
 		for(NftLoglevel l = L_MAX+1; l < L_MIN; l++)
 			if(!_log_out(l))
