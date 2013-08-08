@@ -47,10 +47,9 @@
 
 int main(int argc, char *argv[])
 {
-		NFT_LOG_CHECK_VERSION;
-				
-		printf("Available mechanisms:\n\t");
-		nft_log_mechanism_print_list();
-		return 0;
-}
+        NFT_LOG_CHECK_VERSION;
 
+        printf("Available mechanisms:\n\t");
+        nft_log_mechanism_print_list();
+        return 0;
+}

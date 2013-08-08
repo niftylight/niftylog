@@ -65,77 +65,77 @@ static NftLogMechanism _mechanism;
 /** initialize logging mechanism */
 static NftResult _init()
 {
-		/* get logging ident */
-		char *ident;
-		if(!(ident = getenv(NFT_LOG_ENV_IDENT)))
-				ident = NFT_LOG_DEFAULT_IDENT;
+        /* get logging ident */
+        char *ident;
+        if(!(ident = getenv(NFT_LOG_ENV_IDENT)))
+                ident = NFT_LOG_DEFAULT_IDENT;
 
-		/* open log */
-		openlog(ident, LOG_CONS | LOG_PID, LOG_USER);
+        /* open log */
+        openlog(ident, LOG_CONS | LOG_PID, LOG_USER);
 
-		/* call closelog at exit */
-		atexit(closelog);
-		
-		return NFT_SUCCESS;
+        /* call closelog at exit */
+        atexit(closelog);
+
+        return NFT_SUCCESS;
 }
 
 
 /** deinitialize logging mechanism */
 static void _deinit()
 {
-		closelog();
+        closelog();
 }
 
 
 /** main logging function */
 static void _log(NftLoglevel level, const char *msg)
 {
-		/* convert loglevel to priority */
-		int priority;
-		switch(level)
-		{
-				case L_VERY_NOISY:
-				case L_NOISY:
-				case L_DEBUG:
-				{
-						priority = LOG_DEBUG;
-						break;
-				}
+        /* convert loglevel to priority */
+        int priority;
+        switch (level)
+        {
+                case L_VERY_NOISY:
+                case L_NOISY:
+                case L_DEBUG:
+                {
+                        priority = LOG_DEBUG;
+                        break;
+                }
 
-				case L_VERBOSE:
-				case L_INFO:
-				{
-						priority = LOG_INFO;
-						break;
-				}
+                case L_VERBOSE:
+                case L_INFO:
+                {
+                        priority = LOG_INFO;
+                        break;
+                }
 
-				case L_NOTICE:
-				{
-						priority = LOG_NOTICE;
-						break;
-				}
+                case L_NOTICE:
+                {
+                        priority = LOG_NOTICE;
+                        break;
+                }
 
-				case L_WARNING:
-				{
-						priority = LOG_WARNING;
-						break;
-				}
+                case L_WARNING:
+                {
+                        priority = LOG_WARNING;
+                        break;
+                }
 
-				case L_ERROR:
-				{
-						priority = LOG_ERR;
-						break;
-				}
-						
-				default:
-				{
-						priority = LOG_CRIT;
-						break;
-				}
-		}
-		
-		/* print to stderr */        
-		syslog(priority, "%s", msg);
+                case L_ERROR:
+                {
+                        priority = LOG_ERR;
+                        break;
+                }
+
+                default:
+                {
+                        priority = LOG_CRIT;
+                        break;
+                }
+        }
+
+        /* print to stderr */
+        syslog(priority, "%s", msg);
 }
 
 
@@ -143,20 +143,19 @@ static void _log(NftLoglevel level, const char *msg)
  * return descriptor for this mechanism 
  * @result NftLogMechanism descriptor 
  */
-NftLogMechanism	*nft_log_mechanism_syslog()
+NftLogMechanism *nft_log_mechanism_syslog()
 {
-		return &_mechanism;
+        return &_mechanism;
 }
 
 
 
 /* descriptor */
-static NftLogMechanism _mechanism =
-{
-		.name = "syslog",
-		.log = &_log,
-		.init = &_init,
-		.deinit = &_deinit,
+static NftLogMechanism _mechanism = {
+        .name = "syslog",
+        .log = &_log,
+        .init = &_init,
+        .deinit = &_deinit,
 };
 
 /**

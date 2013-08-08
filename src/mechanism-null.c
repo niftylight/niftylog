@@ -60,20 +60,19 @@ static NftLogMechanism _mechanism;
  * return descriptor for this mechanism 
  * @result NftLogMechanism descriptor 
  */
-NftLogMechanism	*nft_log_mechanism_null()
+NftLogMechanism *nft_log_mechanism_null()
 {
-		return &_mechanism;
+        return &_mechanism;
 }
 
 
 
 /* descriptor */
-static NftLogMechanism _mechanism =
-{
-		.name = "null",
-		.log = NULL,
-		.init = NULL,
-		.deinit = NULL,
+static NftLogMechanism _mechanism = {
+        .name = "null",
+        .log = NULL,
+        .init = NULL,
+        .deinit = NULL,
 };
 
 

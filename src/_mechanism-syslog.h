@@ -64,7 +64,7 @@
 
 
 
-NftLogMechanism	*   nft_log_mechanism_syslog();
+NftLogMechanism                *nft_log_mechanism_syslog();
 
 
 #endif /* _NFT_LOG_MECHANISM_SYSLOG_H */

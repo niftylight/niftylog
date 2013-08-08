@@ -54,54 +54,53 @@
 /** set loglevel */
 static bool _level_set(NftLoglevel l)
 {
-		/* set loglevel */
-		if(!nft_log_level_set(l))
-		{
-				fprintf(stderr, "Failed to nft_log_level_set(\"%s\")!\n",
-				        		nft_log_level_to_string(l));
-				return false;
-		}
+        /* set loglevel */
+        if(!nft_log_level_set(l))
+        {
+                fprintf(stderr, "Failed to nft_log_level_set(\"%s\")!\n",
+                        nft_log_level_to_string(l));
+                return false;
+        }
 
-		/* check if loglevel has been set correctly */
-		if(nft_log_level_get() != l)
-		{
-				fprintf(stderr, "Set loglevel != current loglevel!\n");
-				return false;
-		}
-		
-		return true;
+        /* check if loglevel has been set correctly */
+        if(nft_log_level_get() != l)
+        {
+                fprintf(stderr, "Set loglevel != current loglevel!\n");
+                return false;
+        }
+
+        return true;
 }
 
 
 /** set loglevel l and output message at all loglevels */
 static bool _log_out(NftLoglevel l)
 {
-		if(!_level_set(l))
-				return false;
+        if(!_level_set(l))
+                return false;
 
-		for(NftLoglevel a = L_MAX+1; a < L_MIN; a++)
-		{
-			//printf("Current loglevel: %s - Message loglevel: %s\n",
-			//       	nft_log_level_to_string(l), nft_log_level_to_string(a));
-			LOGWRAP(a, l);
-		}
-		
-		return true;
+        for(NftLoglevel a = L_MAX + 1; a < L_MIN; a++)
+        {
+                // printf("Current loglevel: %s - Message loglevel: %s\n",
+                // nft_log_level_to_string(l), nft_log_level_to_string(a));
+                LOGWRAP(a, l);
+        }
+
+        return true;
 }
 
 
 int main(int argc, char *argv[])
 {
-		NFT_LOG_CHECK_VERSION;
+        NFT_LOG_CHECK_VERSION;
 
-		/* clear loglevel environment variable */
-		putenv(NFT_LOG_ENV_LEVEL);
-		
-		/* set all loglevels and output messages */
-		for(NftLoglevel l = L_MAX+1; l < L_MIN; l++)
-			if(!_log_out(l))
-				return EXIT_FAILURE;
-		
-		return EXIT_SUCCESS;
+        /* clear loglevel environment variable */
+        putenv(NFT_LOG_ENV_LEVEL);
+
+        /* set all loglevels and output messages */
+        for(NftLoglevel l = L_MAX + 1; l < L_MIN; l++)
+                if(!_log_out(l))
+                        return EXIT_FAILURE;
+
+        return EXIT_SUCCESS;
 }
-

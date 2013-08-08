@@ -62,8 +62,8 @@ static NftLogMechanism _mechanism;
 /** main logging function */
 static void _log(NftLoglevel level, const char *msg)
 {
-		/* print to stderr */        
-		fprintf(stderr, "%s\n", msg);
+        /* print to stderr */
+        fprintf(stderr, "%s\n", msg);
 }
 
 
@@ -71,20 +71,19 @@ static void _log(NftLoglevel level, const char *msg)
  * return descriptor for this mechanism 
  * @result NftLogMechanism descriptor 
  */
-NftLogMechanism	*nft_log_mechanism_stderr()
+NftLogMechanism *nft_log_mechanism_stderr()
 {
-		return &_mechanism;
+        return &_mechanism;
 }
 
 
 
 /* descriptor */
-static NftLogMechanism _mechanism =
-{
-		.name = "stderr",
-		.log = &_log,
-		.init = NULL,
-		.deinit = NULL,
+static NftLogMechanism _mechanism = {
+        .name = "stderr",
+        .log = &_log,
+        .init = NULL,
+        .deinit = NULL,
 };
 
 /**

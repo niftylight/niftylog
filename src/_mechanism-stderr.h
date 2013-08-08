@@ -58,7 +58,7 @@
 
 
 
-NftLogMechanism	*   nft_log_mechanism_stderr();
+NftLogMechanism                *nft_log_mechanism_stderr();
 
 
 #endif /* _NFT_LOG_MECHANISM_STDERR_H */

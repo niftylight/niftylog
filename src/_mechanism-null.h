@@ -59,7 +59,7 @@
 
 
 
-NftLogMechanism	*   nft_log_mechanism_null();
+NftLogMechanism                *nft_log_mechanism_null();
 
 
 #endif /* _NFT_LOG_MECHANISM_NULL_H */

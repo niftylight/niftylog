@@ -83,17 +83,17 @@
 /** logging mechanism descriptor */
 typedef struct
 {
-		/** name of this mechanism */
-		const char          name[64];
-		/** logging function of this mechanism */
-		void                (*log) (NftLoglevel level, const char *msg);
-		/** initialization function of this mechanism */
-		NftResult           (*init)(void);
-		/** deinitialization function of this mechanism */
-		void                (*deinit)(void);
-		/** set to true if mechanism is initialized */
-		bool                initialized;
-}NftLogMechanism;
+        /** name of this mechanism */
+        const char                      name[64];
+        /** logging function of this mechanism */
+        void                            (*log) (NftLoglevel level, const char *msg);
+        /** initialization function of this mechanism */
+        NftResult                       (*init) (void);
+        /** deinitialization function of this mechanism */
+        void                            (*deinit) (void);
+        /** set to true if mechanism is initialized */
+        bool                            initialized;
+} NftLogMechanism;
 
 
 
@@ -101,8 +101,8 @@ typedef struct
 
 
 
-void                nft_log_mechanism_print_list();
-NftResult           nft_log_mechanism_set(const char *name);
+void                            nft_log_mechanism_print_list();
+NftResult                       nft_log_mechanism_set(const char *name);
 
 
 #endif /* _NFT_LOG_MECHANISM_H */

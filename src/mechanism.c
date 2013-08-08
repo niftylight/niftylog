@@ -63,13 +63,13 @@
 /** list of NftLogMechanism getters for various supported mechanisms */
 static struct LogMechanisms
 {
-		NftLogMechanism *	(*get)(void);
-}nft_log_mechanisms[] =
+        NftLogMechanism *(*get) (void);
+} nft_log_mechanisms[] =
 {
-		{ &nft_log_mechanism_null },
-		{ &nft_log_mechanism_stderr },
-		{ &nft_log_mechanism_syslog },
-		{ NULL }
+        { &nft_log_mechanism_null },
+        { &nft_log_mechanism_stderr },
+        { &nft_log_mechanism_syslog },
+        { NULL }
 };
 
 
@@ -84,23 +84,24 @@ static NftLogMechanism *_current;
  *
  * @param[in] name printable name of mechanism
  * @result NftLogMechanism or NULL
- */ 
+ */
 static NftLogMechanism *_get(const char *name)
 {
-		if(!name)
-				return NULL;
-		
-		/* walk through getters */
-        for(struct LogMechanisms *mlist = nft_log_mechanisms; *mlist->get; mlist++)
-		{
-				NftLogMechanism *m = (*mlist->get)();
-				if(strcmp(name, m->name) == 0)
-				{
-						return m;
-				}
-		}
+        if(!name)
+                return NULL;
 
-		return NULL;
+        /* walk through getters */
+        for(struct LogMechanisms * mlist = nft_log_mechanisms; *mlist->get;
+            mlist++)
+        {
+                NftLogMechanism *m = (*mlist->get) ();
+                if(strcmp(name, m->name) == 0)
+                {
+                        return m;
+                }
+        }
+
+        return NULL;
 }
 
 
@@ -112,13 +113,13 @@ static NftLogMechanism *_get(const char *name)
  */
 void _mechanism_log(NftLoglevel level, char *msg)
 {
-		/* set current mechanism (will exit immediately if not necessary */
-		if(!_current)
-				nft_log_mechanism_set(NFT_LOG_DEFAULT_MECHANISM);
-		
-		/* log */
-		if(_current->log)
-				_current->log(level, msg);
+        /* set current mechanism (will exit immediately if not necessary */
+        if(!_current)
+                nft_log_mechanism_set(NFT_LOG_DEFAULT_MECHANISM);
+
+        /* log */
+        if(_current->log)
+                _current->log(level, msg);
 }
 
 
@@ -127,14 +128,15 @@ void _mechanism_log(NftLoglevel level, char *msg)
  */
 void nft_log_mechanism_print_list()
 {
-		/* walk through getters */
-        for(struct LogMechanisms *mlist = nft_log_mechanisms; *mlist->get; mlist++)
-		{
-				NftLogMechanism *m = (*mlist->get)();
-				printf("%s ", m->name);
-		}
+        /* walk through getters */
+        for(struct LogMechanisms * mlist = nft_log_mechanisms; *mlist->get;
+            mlist++)
+        {
+                NftLogMechanism *m = (*mlist->get) ();
+                printf("%s ", m->name);
+        }
 
-		printf("\n");
+        printf("\n");
 }
 
 
@@ -146,61 +148,63 @@ void nft_log_mechanism_print_list()
  */
 NftResult nft_log_mechanism_set(const char *name)
 {
-		/* same mechanism as before? */
-		if(_current && name && strcmp(name, _current->name) == 0)
-				return NFT_SUCCESS;
-		
-		/* logging mechanism name from environment always wins */
-		char *mechanism_name;
-		if((mechanism_name = getenv(NFT_LOG_ENV_MECHANISM)))
-				name = mechanism_name;
+        /* same mechanism as before? */
+        if(_current && name && strcmp(name, _current->name) == 0)
+                return NFT_SUCCESS;
 
-		/* if no name was given, use default logging mechanism */
-		if(!name)
-				name = NFT_LOG_DEFAULT_MECHANISM;
+        /* logging mechanism name from environment always wins */
+        char *mechanism_name;
+        if((mechanism_name = getenv(NFT_LOG_ENV_MECHANISM)))
+                name = mechanism_name;
 
-		/* "list" mechanism to print a list of all mechanisms ? */
-		if(strcmp(name, "list") == 0)
-		{
-				/* print list */
-				printf("================================="
-				       "=================================\n"
-				       " available logging mechanisms:\n\t");
-				nft_log_mechanism_print_list();
-				printf("================================="
-				       "=================================\n");
+        /* if no name was given, use default logging mechanism */
+        if(!name)
+                name = NFT_LOG_DEFAULT_MECHANISM;
 
-				/* use default mechanism */
-				name = NFT_LOG_DEFAULT_MECHANISM;
-		}
-		
-		/* deinitialize current mechanism */
-		if(_current && _current->deinit)
-		{
-				_current->deinit();
-				_current->initialized = false;
-		}
-		
-		/* get new mechanism */
-		if(!(_current = _get(name)))
-		{
-				fprintf(stderr, "Unknown logging mechanism: \"%s\"\n", name);
-				return NFT_FAILURE;
-		}
+        /* "list" mechanism to print a list of all mechanisms ? */
+        if(strcmp(name, "list") == 0)
+        {
+                /* print list */
+                printf("================================="
+                       "=================================\n"
+                       " available logging mechanisms:\n\t");
+                nft_log_mechanism_print_list();
+                printf("================================="
+                       "=================================\n");
 
-		/* initialize mechanism */
-		if(_current->init)
-		{
-				if(!_current->init())
-				{
-						fprintf(stderr, "Failed to initialize mechanism \"%s\"\n", name);
-						return NFT_FAILURE;
-				}
+                /* use default mechanism */
+                name = NFT_LOG_DEFAULT_MECHANISM;
+        }
 
-				_current->initialized = true;
-		}
-		
-		return NFT_SUCCESS;
+        /* deinitialize current mechanism */
+        if(_current && _current->deinit)
+        {
+                _current->deinit();
+                _current->initialized = false;
+        }
+
+        /* get new mechanism */
+        if(!(_current = _get(name)))
+        {
+                fprintf(stderr, "Unknown logging mechanism: \"%s\"\n", name);
+                return NFT_FAILURE;
+        }
+
+        /* initialize mechanism */
+        if(_current->init)
+        {
+                if(!_current->init())
+                {
+                        fprintf(stderr,
+                                "Failed to initialize mechanism \"%s\"\n",
+                                name);
+                        return NFT_FAILURE;
+                }
+
+                _current->initialized = true;
+        }
+
+        return NFT_SUCCESS;
 }
 
 /**

@@ -46,7 +46,7 @@
 #define _MECHANISM_H
 
 
-void                _mechanism_log(NftLoglevel level, char *msg);
+void                            _mechanism_log(NftLoglevel level, char *msg);
 
 
 #endif /* _MECHANISM_H */
