@@ -50,16 +50,32 @@
  * @{
  */
 
+#ifndef WIN32
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <syslog.h>
 #include "config.h"
 #include "logger-mechanism.h"
 
+
+
 #define NFT_LOG_ENV_IDENT		"NFT_LOG_IDENT"
 #define NFT_LOG_DEFAULT_IDENT	PACKAGE
 
 static NftLogMechanism _mechanism;
+
+
+/** try to get process name or return default ident string */
+static char *_get_ident_string()
+{
+		
+	char *r;
+	if((r = getenv("_")))
+				return r;
+		
+	return NFT_LOG_DEFAULT_IDENT;
+}
 
 
 /** initialize logging mechanism */
@@ -68,8 +84,12 @@ static NftResult _init()
         /* get logging ident */
         char *ident;
         if(!(ident = getenv(NFT_LOG_ENV_IDENT)))
-                ident = NFT_LOG_DEFAULT_IDENT;
-
+		{
+				/* if no ident was given, try to get current process name
+				   or use default ident string */			
+                ident = _get_ident_string();
+		}
+		
         /* open log */
         openlog(ident, LOG_CONS | LOG_PID, LOG_USER);
 
@@ -157,6 +177,9 @@ static NftLogMechanism _mechanism = {
         .init = &_init,
         .deinit = &_deinit,
 };
+
+
+#endif
 
 /**
  * @}

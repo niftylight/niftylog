@@ -68,7 +68,9 @@ static struct LogMechanisms
 {
         { &nft_log_mechanism_null },
         { &nft_log_mechanism_stderr },
+#ifndef WIN32		
         { &nft_log_mechanism_syslog },
+#endif
         { NULL }
 };
 

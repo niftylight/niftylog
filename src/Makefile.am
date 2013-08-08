@@ -18,14 +18,14 @@ INCLUDE_DIRS = \
 EXTRA_DIST =
 
 
-# source-files
+# source files
 lib@PACKAGE@_la_SOURCES = \
 	version.c \
+	logger.c \
 	mechanism.c \
-	mechanism-syslog.c \
 	mechanism-stderr.c \
 	mechanism-null.c \
-	logger.c
+	mechanism-syslog.c
 
 
 # compile for debugging ?
