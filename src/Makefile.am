@@ -15,7 +15,11 @@ INCLUDE_DIRS = \
 
 
 # extra files to include in distribution
-EXTRA_DIST =
+EXTRA_DIST = \
+        _mechanism.h \
+        _mechanism-syslog.h \
+        _mechanism-stderr.h \
+        _mechanism-null.h
 
 
 # source files
