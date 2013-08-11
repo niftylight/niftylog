@@ -1,0 +1,8 @@
+Document: @PACKAGE@
+Title: @PACKAGE_DESCRIPTION@
+Author: @PACKAGE_AUTHOR@
+Abstract: Doxygen generated manual for @PACKAGE@@PACKAGE_VERSION_LONG@
+Section: System/Monitoring
+Format: HTML
+Index: /doc/html/index.html
+Files: /doc/html/*.html
