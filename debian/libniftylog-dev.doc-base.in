@@ -1,7 +1,7 @@
 Document: @PACKAGE@
 Title: @PACKAGE_DESCRIPTION@
-Author: @PACKAGE_AUTHOR@
-Abstract: Doxygen generated manual for @PACKAGE@@PACKAGE_VERSION_LONG@
+Author: Daniel Hiepler
+Abstract: Doxygen generated manual for @PACKAGE_STRING@ (@PACKAGE_GIT_VERSION@)
 Section: System/Monitoring
 Format: HTML
 Index: /doc/html/index.html
