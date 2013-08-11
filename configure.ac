@@ -63,7 +63,7 @@ fi
 
 AC_CHECK_PROGS([DOXYGEN], [doxygen])
 if test -n "$DOXYGEN"; then 
-  AC_CONFIG_FILES([debian/libniftylog-dev.doc-base])
+  AC_CONFIG_FILES([debian/doc-base.template])
 fi
 AM_CONDITIONAL([HAVE_DOXYGEN], [test -n "$DOXYGEN"])
 
@@ -144,8 +144,8 @@ AC_CONFIG_FILES(
 	  src/version.c
 	  tests/Makefile
 	  $PACKAGE.pc
-      doc/Doxyfile
-      doc/Makefile
+          doc/Doxyfile
+          doc/Makefile
 	  debian/control.tmpl
 	  gentoo/dev-libs/niftylog/niftylog-9999.ebuild
 ])
