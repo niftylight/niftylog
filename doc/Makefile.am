@@ -26,4 +26,4 @@ doxyfile.stamp: html
 all-local: doxyfile.stamp
 
 deb:
-	cp "$(top_builddir)/debian/doc-base.template" "$(DEBSRCDIR)/debian/libniftylog-dev.doc-base"
+	cp "$(top_builddir)/debian/docbase" "$(DEBSRCDIR)/debian/libniftylog-dev.doc-base"

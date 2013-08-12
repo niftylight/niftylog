@@ -63,7 +63,7 @@ fi
 
 AC_CHECK_PROGS([DOXYGEN], [doxygen])
 if test -n "$DOXYGEN"; then 
-  AC_CONFIG_FILES([debian/doc-base.template])
+  AC_CONFIG_FILES([debian/docbase])
 fi
 AM_CONDITIONAL([HAVE_DOXYGEN], [test -n "$DOXYGEN"])
 

@@ -8,6 +8,8 @@ Homepage: @PACKAGE_URL@
 #Vcs-Git: git://github.com/niftylight/niftylog.git
 #Vcs-Browser: https://github.com/niftylight/niftylog.git
 
+
+
 Package: @PACKAGE_NAME@-dev
 Section: libdevel
 Architecture: any
@@ -15,6 +17,15 @@ Depends: ${misc:Depends}, @PACKAGE_NAME@@PACKAGE_API_REVISION@ (= ${binary:Versi
 Description: @PACKAGE_NAME@ library headers
  This package contains development headers for @PACKAGE_NAME@ -
  @PACKAGE_DESCRIPTION_LONG@
+
+Package: @PACKAGE_NAME@@PACKAGE_API_REVISION@-dbg
+Section: libdevel
+Architecture: any
+Depends: @PACKAGE_NAME@@PACKAGE_API_REVISION@ (= ${source:Version})
+Description: @PACKAGE_NAME@ debugging symbols
+ This package contains debugging symbols for @PACKAGE_NAME@ -
+ @PACKAGE_DESCRIPTION_LONG@
+
 
 Package: @PACKAGE_NAME@@PACKAGE_API_REVISION@
 Section: libs
