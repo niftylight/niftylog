@@ -137,17 +137,18 @@ AM_CONDITIONAL(DEBUG, test x$debug = xtrue)
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES(
 [	  
-	  Makefile
-	  include/Makefile
-	  include/logger-version.h
-	  src/Makefile
-	  src/version.c
-	  tests/Makefile
-	  $PACKAGE.pc
+          Makefile
+          include/Makefile
+          include/logger-version.h
+          src/Makefile
+          src/version.c
+          tests/Makefile
+          $PACKAGE.pc
           doc/Doxyfile
           doc/Makefile
-	  debian/control.tmpl
-	  gentoo/dev-libs/niftylog/niftylog-9999.ebuild
+          debian/control.tmpl
+          debian/rules.tmpl
+          gentoo/dev-libs/niftylog/niftylog-9999.ebuild
 ])
 AC_OUTPUT
 
