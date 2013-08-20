@@ -27,7 +27,7 @@ AM_INIT_AUTOMAKE([color-tests dist-bzip2 parallel-tests silent-rules -Wno-portab
 
 # infos
 PACKAGE_DESCRIPTION="lightweight logging/debugging library"
-PACKAGE_DESCRIPTION_LONG="lightweight library to implement logging/debugging output for new or existing applications"
+PACKAGE_DESCRIPTION_LONG="lightweight library to implement logging/debugging output for new or existing applications."
 
 AC_SUBST([PACKAGE_DESCRIPTION], [${PACKAGE_DESCRIPTION}], [package description])
 AC_SUBST([PACKAGE_DESCRIPTION_LONG], [${PACKAGE_DESCRIPTION_LONG}], [long package description])
@@ -150,6 +150,7 @@ AC_CONFIG_FILES(
           debian/control.tmpl
           debian/rules.tmpl
           debian/changelog
+          debian/watch
           gentoo/dev-libs/niftylog/niftylog-9999.ebuild
 ])
 AC_OUTPUT
