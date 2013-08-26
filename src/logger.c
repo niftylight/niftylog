@@ -333,7 +333,7 @@ NftLoglevel nft_log_level_from_string(const char *name)
 
         NftLoglevel res;
 
-        for(res = L_MAX; res < L_MIN; res++)
+        for(res = L_MAX; res < L_MIN - 1; res++)
         {
                 if(strncmp
                    (name, _loglevel_names[res],
