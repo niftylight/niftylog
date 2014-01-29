@@ -36,7 +36,7 @@ check_PROGRAMS = \
 	logging
 
 TESTS = $(check_PROGRAMS)
-TESTS_ENVIRONMENT = $(srcdir)/tests.env
+AM_TESTS_ENVIRONMENT = $(srcdir)/tests.env;
 
 
 list_mechanisms_SOURCES = list_mechanisms.c
