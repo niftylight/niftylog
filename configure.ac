@@ -66,7 +66,7 @@ fi
 
 AC_CHECK_PROGS([DOXYGEN], [doxygen])
 if test -n "$DOXYGEN"; then 
-  AC_CONFIG_FILES([debian/docbase])
+  AC_CONFIG_FILES([dist/debian/docbase])
 fi
 AM_CONDITIONAL([HAVE_DOXYGEN], [test -n "$DOXYGEN"])
 
@@ -139,7 +139,7 @@ AM_CONDITIONAL(DEBUG, test x$debug = xtrue)
 # --------------------------------
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES(
-[	  
+[
           Makefile
           include/Makefile
           include/logger-version.h
@@ -149,11 +149,10 @@ AC_CONFIG_FILES(
           $PACKAGE.pc
           doc/Doxyfile
           doc/Makefile
-          debian/control.tmpl
-          debian/rules.tmpl
-          debian/changelog
-          debian/watch
-          gentoo/dev-libs/niftylog/niftylog-9999.ebuild
+          dist/debian/control.tmpl
+          dist/debian/rules.tmpl
+          dist/debian/changelog
+          dist/debian/watch
 ])
 AC_OUTPUT
 
